@@ -1,0 +1,77 @@
+﻿@model Data.Models.tbArticle
+
+<section class="row page-header">
+    <div class="container">
+        <h4>@Html.DisplayFor(model => model.Title)</h4>
+    </div>
+</section>
+
+<section style="margin-top: 20px;margin-bottom:20px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <div class="label pull-left">@Html.DisplayFor(model => model.AuthorName)</div>
+                    <div class="label" style="color: #000000; background: #ffffff;"> <span>Posted date - </span> <span>@Html.DisplayFor(model => model.PostedDate)</span> </div>
+                </div>
+                <br />
+                @if (Model.Photo != null)
+                {
+                    <div>
+                        <img src="https://portalvhdslvb28rs1c3tmc.blob.core.windows.net:443/mmc/photo/@Html.ValueFor(model => model.Photo)" style="height: 300px;"/>
+                    </div>
+                <br />
+                }
+                <p>
+                    @Html.DisplayFor(model => model.Body)
+                </p>
+                <br/>
+            </div>
+            <div class="col-md-4">
+
+                <div class="row" id="photo_list"></div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+            @Html.Partial("_footer")
+
+
+            @section scripts{
+
+                <script type="text/javascript">
+
+                    $(function () {
+
+                        getAllPhotoByArticleId('@Request.QueryString["id"]');
+
+                    });
+
+                    function getAllPhotoByArticleId(v) {
+
+                        $.ajax({
+                            url: '/Admin/getAllPhotoByArticleId',
+                            data: { aid: v },
+                            beforeSend: function () {
+                                $("#photo_list").append("<div style = \"width: 100%; text-align: center; margin-top: 10px; margin-bottom: 10px;\">Loading ....</div>");
+                            },
+                            success: function (myData) {
+
+                                $("#photo_list").empty();
+
+                                for (var v = 0; v < myData.length; v++) {
+
+                                    $("#photo_list").append("<div class = \"col-md-3\"><img src = \"https://portalvhdslvb28rs1c3tmc.blob.core.windows.net:443/mmc/photo/" + myData[v].PhotoURL + "\" /></div>");
+                                }
+
+                                $(".gallery-item .image").nivoLightbox();
+
+                            }
+                        });
+                    }
+
+                </script>
+
+            }

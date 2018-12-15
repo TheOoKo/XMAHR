@@ -1,0 +1,134 @@
+﻿
+@model Data.Models.tbRenewalPractitionerApplication
+@using (Html.BeginForm("Edit", "RenewalApplication", FormMethod.Post, new { id = "editForm", @class = "m0 custom_form style3" }))
+{
+
+    
+        <div class="form-group">
+            <label>Name</label>
+            @Html.TextBoxFor(a => a.Name, new { placeholder = "Fill your name here", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>NRC No.</label>
+            @Html.TextBoxFor(a => a.NRC, new { placeholder = "Fill your national scrunity card no. here", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Medical Practicing License No. (Sama)</label>
+            @Html.TextBoxFor(a => a.LicenseNo, new { placeholder = "Fill your medical practitioner licence no. here", type = "number", @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Degree</label>
+            @Html.TextBoxFor(a => a.Degree, new { placeholder = "Fill degree here", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Year of Graduation</label>
+            @Html.TextBoxFor(a => a.GraduationYear, new { placeholder = "Fill your graduation year here. (19XX)", type = "number", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Phone</label>
+            @Html.TextBoxFor(a => a.Phone, new { placeholder = "Fill your recent phone number here", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            @Html.TextBoxFor(a => a.Email, new { placeholder = "Fill your recent email here", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Address</label>
+            @Html.TextBoxFor(a => a.CurrentAddress, new { placeholder = "Fill your recent address here", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>State/Division</label>
+            <select class="form-control" name="StateName" id="states" placeholder="Select division here"></select>
+            @Html.HiddenFor(Model => Model.StateDivision, new { @class = "form-control", id = "hstates" })
+        </div>
+        <div class="form-group">
+            <label>Township</label>
+            <select class="form-control" name="TownshipName" id="townships" placeholder="Select township here"></select>
+            @Html.HiddenFor(Model => Model.Township, new { @class = "form-control", id = "htownships" })
+        </div>
+
+        <div class="form-group">
+            <label>Occupation</label>
+            @Html.TextBoxFor(a => a.Occupation, new { placeholder = "Fill your occupation here", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @{
+                List<string> postalservices = new List<string>() { "DHL Express", "Domestic Express Mail Service (DEMS)", "Express Mail Service (EMS)", "Myanmar Postal Service", "Royal Mail Service" };
+            }
+            <label>Preferred Postal Service</label>
+            @Html.DropDownListFor(Model => Model.PostalService, new SelectList(postalservices), new { @class = "form-control" })
+        </div>
+
+        <hr />
+        <p>By clicking 'Proceed' button, we assume that you have accepted all terms and conditions defined for renewal application online.</p>
+        <hr/>
+        <div class="form-group text-left">
+            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-arrow-right"></span> Proceed</button>
+            <div id="loading" class="loadingFountain hidden" style="padding-top:10px;margin-top:10px;">
+                <div id="fountainG_1" class="fountainG"></div>
+                <div id="fountainG_2" class="fountainG"></div>
+                <div id="fountainG_3" class="fountainG"></div>
+                <div id="fountainG_4" class="fountainG"></div>
+            </div>
+            <div id="alert" class="alert alert-success hidden"><strong>Successfully done!</strong><span class="font-size14"> Thanks for contacting us. We will response to you shortly.</span></div>
+        </div>
+    
+}
+<script type="text/javascript">
+    function setStateAndTownship(stateinput,townshipinput) {
+        var selectstates = $(stateinput);
+        var selecttownships = $(townshipinput);
+        $.ajax({
+            url: '@Url.Action("GetStates", "Home")',
+            type: 'Get',
+            cache: false,
+            success: function (result) {
+               
+                selectstates.empty();
+                for (i = 0; i < result.length; i++) {
+                    selectstates.append($('<option></option>').text(result[i]).attr('ID', result[i]));
+                }
+            },
+            complete: function () {
+                selectstates.val($('#hstates').val()); //restore value
+                $.ajax({
+                    url: '@Url.Action("GetTownships","Home")',
+                    type: 'Get',
+                    cache: false,
+                    data: { selectedState: selectstates.val() },
+                    success: function (result) {
+                        selecttownships.empty();
+                        for (i = 0; i < result.length; i++) {
+                            selecttownships.append($('<option></option>').text(result[i]).attr('ID', result[i]));
+                        }
+                    },
+                    complete: function () {
+                        selecttownships.val($('#htownships').val()); //restore value
+                        
+                    }
+                })
+            }
+        })
+        selectstates.change(function () {
+            $.ajax({
+                url: '@Url.Action("GetTownships","Home")',
+                type: 'Get',
+                cache: false,
+                data: { selectedState: $(this).find('option:selected').text() },
+                success: function (result) {
+
+                    selecttownships.empty();
+                    for (i = 0; i < result.length; i++) {
+                        selecttownships.append($('<option></option>').text(result[i]).attr('ID', result[i]));
+                    }
+                },
+                complete: function () {
+
+                }
+            })
+        })
+
+    }
+    
+</script>

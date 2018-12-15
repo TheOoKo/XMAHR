@@ -1,0 +1,291 @@
+﻿@model Data.Models.Personal
+
+<div id="modal_createForm" class="modal fade">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title"><i class="icon-menu7"></i> &nbsp; Registration form</h5>
+            </div>
+
+            @using (Html.BeginForm("Create", "Personal", FormMethod.Post, new { id = "createForm", @class = "form-vertical form-validate-jquery" }))
+            {
+            <div class="modal-body">
+                <div class="alert alert-info alert-styled-left text-blue-800 content-group">
+                    <span class="text-semibold">Add new Personal Data</span> Here is the form for registering new person.
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Name</label><span class="text-danger">*</span>
+                            @Html.TextBoxFor(a => a.Name, new { placeholder = "Type Name here", @class = "form-control" })
+
+                            <div class="messages"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>ChildHood Name</label><span class="text-danger">*</span>
+                            @Html.TextBoxFor(a => a.ChildHoodName, new { placeholder = "Type Name here", @class = "form-control" })
+                            <div class="messages"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Other Name</label><span class="text-danger">*</span>
+                            @Html.TextBoxFor(a => a.OtherName, new { placeholder = "Type Name here", required = "required", @class = "form-control" })
+                            <div class="messages"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Current Rank</label><span class="text-danger">*</span>
+                            @Html.TextBoxFor(a => a.CurrentRank, new { placeholder = "Type here", required = "required", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>StartDateofCurrentPosition</label>
+                            <br />
+                            <br />
+                          
+                                <input class="form-control datepicker" name="StartDateofCurrentPosition" type="text" />
+                            
+                            
+                            <div class="messages"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>How You Get Job?</label>
+                            @Html.TextAreaFor(a => a.HowYouGetJob, new { placeholder = "Type here", @class = "form-control" })
+                            <div class="messages"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Selected or Direct Appointment</label>
+                            <br />
+                            <br />
+                            Select : @Html.RadioButtonFor(a => a.SelectedOrDirectAppointment, "Selected")&nbsp;
+                            Direct :  @Html.RadioButtonFor(a => a.SelectedOrDirectAppointment, "Direct")
+
+                            <div class="messages"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Job Recommended By</label>
+                            @Html.TextBoxFor(a => a.JobRecommendedBy, new { placeholder = "Type here", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Start Join Date</label>
+
+                            <input class="form-control datepicker" name="StartJoinDate" type="text" />
+                            <div class="messages"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Salary</label>
+                            @Html.TextBoxFor(a => a.Salary, new { placeholder = "Type here", @class = "form-control", Type = "number" })
+                            <div class="messages"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>SalaryRange</label>
+                            @Html.TextBoxFor(a => a.SalaryRange, new { placeholder = "Type here", @class = "form-control", Type = "number" })
+                            <div class="messages"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Division Name</label>
+                            <select name="DivisionID" id="Division" class="form-control">
+                                <option value="">Select Division</option>
+                            </select>
+                        
+                            <input type="hidden" id="divisionid" @*name="DivisionID"*@ @*value="@Model.DivisionID"*@ />
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+
+                            <label>Section Name</label>
+                            <br />
+                            <br />
+                            <select name="SectionID" id="Section" class="form-control">
+                                <option value="">Select Section</option>
+                            </select>
+                            <input type="hidden" id="sectionId"/>
+ 
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Work Address</label>
+                            @Html.TextAreaFor(a => a.WorkAddress, new { placeholder = "Type Here", @class = "form-control" })
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label>Age</label>
+                            <br />
+                            <br />
+                            @Html.TextBoxFor(a => a.Age, new { placeholder = "Type Here", @class = "form-control", Type = "number" })
+
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label>Date Of Birth</label>
+                            <br />
+                            <br />
+                            <input class="form-control datepicker" name="DateOfBirth" type="text" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Native Town</label>
+                            @Html.TextBoxFor(a => a.NativeTown, new { placeholder = "Type Here", @class = "form-control" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label>
+                                Religion
+                            </label>
+                            @{
+                                var religion = new List<SelectListItem>()
+                                                {
+                                                    new SelectListItem{ Value="",Text="--Select Religion--"},
+                                                    new SelectListItem{Value="Buddhism",Text="Buddhism"},
+                                                    new SelectListItem {Value="Christianity", Text="Christianity" },
+                                                    new SelectListItem {Value="Islam", Text="Islam" },
+                                                    new SelectListItem {Value="Hinduism", Text="Hinduism" },
+                                                    new SelectListItem {Value="Other", Text="Other" }
+
+                                                };
+                            }
+                            @Html.DropDownListFor(a=>a.Religion,religion,new { @class="form-control" , name="Select" , require="require"})
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Race</label>
+                            @Html.TextBoxFor(a => a.Race, new { placeholder = "Type Here", @class = "form-control" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label>NRC No</label>
+                            @Html.TextBoxFor(a => a.NRCNo, new { placeholder = "Type Here", @class = "form-control" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Height</label>
+                            @Html.TextBoxFor(a => a.Height, new { placeholder = "Type Here", @class = "form-control" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Weight</label>
+                            @Html.TextBoxFor(a => a.Weight, new { placeholder = "Type Here", @class = "form-control" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Hair Color</label>
+                            @Html.TextBoxFor(a => a.HairColor, new { placeholder = "Type Here", @class = "form-control" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Eye Color</label>
+                            @Html.TextBoxFor(a => a.EyeColor, new { placeholder = "Type Here", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Distinguished Mark</label>
+                            <br />
+                            <br />
+                            @Html.TextBoxFor(a => a.DistinguishedMark, new { placeholder = "Type Here", @class = "form-control" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Service Year</label>
+                            <br />
+                            <br />
+                            @Html.TextBoxFor(a => a.SerivceYear, new { placeholder = "Type Here", @class = "form-control", Type = "number" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Start ServiceDate</label>
+                            <br />
+                            <br />
+                            <input class="form-control datepicker" name="StartServiceDate" type="text" />
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Current Address</label>
+                            @*@Html.TextAreaFor(a => a.CurrentAddress, new { placeholder = "Type Here", @class = "form-control" })*@
+                            @*@Html.TextBoxFor(a => a.CurrentAddress, new { placeholder = "Type Here", @class = "form-control" })*@
+                            @*@Html.TextAreaFor(a => a.CurrentAddress, new { placeholder = "Type Here", @class = "form-control" })*@
+                        @Html.TextAreaFor(m => m.CurrentAddress, new { @class = "form-control" , })  
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Perminent Address</label>
+                            @Html.TextAreaFor(a => a.PermanentAddress, new { @class = "form-control" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Previous Address</label>
+                            @Html.TextAreaFor(a => a.PreviousAddress, new { @class = "form-control" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Education</label>
+                            <br />
+                            <br />
+                            @Html.TextBoxFor(a => a.Education, new { placeholder = "Type Here", @class = "form-control" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Foreign Trip</label>
+                            <br />
+                            <br />
+                            Yes : @Html.RadioButtonFor(a => a.ForeignTrip, true)
+                            No  : @Html.RadioButtonFor(a => a.ForeignTrip, false)
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Hobby</label>
+                            @Html.TextAreaFor(a => a.Hobby, new { @class = "form-control" })
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Previous Jobs(Department/TownShip)</label>
+
+                            @Html.TextAreaFor(a => a.PreviousJobs, new { @class = "form-control" })
+                        </div>
+                       
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit form</button>
+                        </div>
+                                }
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+

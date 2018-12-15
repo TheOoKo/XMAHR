@@ -1,0 +1,220 @@
+﻿@model Data.Models.Personal
+
+@section head{
+    <link href="~/Content/bootstrapValidator.css" rel="stylesheet" />
+}
+
+<div class="page-header">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h5>
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">EducationHistory Detail</span>
+                <small>Admin Panel</small>
+            </h5>
+            <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    @*<div class="container-fluid">
+
+        <div class="content" id="ListResult" style="width:100%">
+            <h3>Loading...</h3>
+        </div>
+    </div>*@
+</div>
+
+
+
+
+
+<div class="panel panel-default" id="panel_@Model.PersonalID">
+
+
+    <div class="panel-heading" style="padding-top:0px !important">
+        <div class="panel-title">
+            <div class="media-left media-middle">
+
+                <img style="max-height:none;" src="~/Images/doctor.png" class="img-circle img-responsive" alt="">
+            </div>
+            <div class="media-body">
+                <div><h6><a data-toggle="collapse" data-parent="#accordion-control" href="#accordion-control-@Model.PersonalID" data-id="@Model.PersonalID" class="text-default text-semibold">@Model.Name &nbsp;</a></h6></div>
+                <div class="text-size-large">
+                    <span class="text-muted">@Model.CurrentRank</span>
+                </div>
+
+            </div>
+            <div class="media-right media-middle">
+                @*<ul class="icons-list">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a onclick="EDIT(@Model.PersonalID, 'div_editForm', '@Url.Action("Edit", "Doctor")', 'editForm', 'modal_editForm')"><i class="icon-file-stats"></i> Edit</a></li>
+                            <li><a onclick="deleteEntity(@Model.PersonalID)"><i class="icon-trash"></i> Delete</a></li>
+
+                            <li class="divider"></li>
+                            <li><a onclick="addquali(this)" data-id="@Model.PersonalID" data-name="@Model.Name"><i class="icon-gear"></i> Add Qualification</a></li>
+                        </ul> 
+                    </li>
+                </ul>*@
+            </div>
+
+
+        </div>
+    </div>
+    <div id="accordion-control-@Model.PersonalID" class="panel-collapse collapse">
+        <div id="qualifordoctor_@Model.PersonalID"></div>
+    </div>
+</div>
+
+
+
+<div id="myModal" class="modal fade">
+    @*<div class="modal-dialog modal-full">*@
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="EducationHistory">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    <div id="div-Education">
+        @Html.Partial("_Detail", new EduHistory())
+    </div>
+
+    @*@Html.Partial("_NoEduHistory")*@
+
+     @section Scripts{
+
+        <script src="~/Scripts/bootstrap-datepicker.js"></script>
+        <script src="~/Scripts/sweetalert.min.js"></script>
+        <script src="~/Scripts/CRUD.js"></script>
+        @Scripts.Render("~/bundles/validation")
+        <script type="text/javascript">
+            var Id=@ViewBag.PersonalId;
+
+            $(function (){
+
+                LoadMainList();
+            });
+
+            function LoadMainList(){
+                $.ajax({
+                    url:'@Url.Action("GetHistory", "EducationHistory")',
+                    data:{Id:Id},
+                    beforeSend:function(){
+
+                    },
+                    success:function(result){
+                        
+                            $("#div-Education").empty().append(result);
+                        
+                        //else{
+                        //    $("#div-EduHistory").empty().append(result);
+                        //}
+
+
+                    },
+                    complete:function(){
+
+                    }
+                })
+
+            }
+            
+
+            function addEduHistory(){
+                EducationForm("Add",Id);
+            }
+
+            function EditEduHistory(e){
+                alert("Hello");
+                var ID=$(e).attr('data-EduId')
+                alert(ID);
+                EducationForm("Edit",ID);
+            }
+
+           
+            function EducationForm(FormType,Id)
+            {
+                $.ajax({
+                    url:'@Url.Action("UpsertEducation","EducationHistory")',
+                    data:{FormType:FormType,Id:Id},
+                    beforeSend:function(){
+
+                    },
+                    success:function(result){
+                        $("#EducationHistory").empty().append(result)
+                    },
+                    complete:function(){
+                        $("#myModal").modal('show');
+                        $('.datepicker').datepicker();
+
+
+                        @*$("EducationForm").submit(function (e){
+                            e.preventDefault();
+                            $.ajax({
+                                cache:false,
+                                url:'@Url.Action("UpsertEduHistory","EducationHistory")',
+                                type:"Post",
+                                
+                                data:$(this).serialize(),
+                              
+                                beforeSend:function(){
+                                    $('.btn').prop("disabled", true);
+                                },
+                                complete:function(){
+
+                                },
+                                success:function(){
+                                    $("myModal").modal('hide');
+                                    $('.btn').prop("disabled", true);
+
+                                }
+
+
+                            })
+                        });*@
+
+
+
+                        $('#EducationForm').submit(function (e) {
+                            e.preventDefault();
+                            $.ajax({
+                                cache: false,
+                                url: '@Url.Action("UpsertEduHistory", "EducationHistory")',
+                                type: "Post",
+                                data: $(this).serialize(),
+                                beforeSend: function () {
+                                    $('.btn').prop("disabled", true);
+                                },
+                                success: function (myData) {
+                               
+                                },
+                                complete: function () {
+                                    $('#myModal').modal('hide');
+                                    $('.btn').prop("disabled", false);
+                                    LoadMainList();
+                                }
+                            });
+
+
+                        });
+
+
+              
+                    }
+                })
+              
+            }
+
+        </script>
+    }
+
+
+
+

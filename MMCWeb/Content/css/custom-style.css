@@ -1,0 +1,105 @@
+﻿.custom_page_title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+.custom_page_title.map-title {
+  margin-bottom: 25px;
+}
+
+.custom_page_para {
+  font: 21px/30px "Karla", sans-serif;
+  letter-spacing: -0.1px;
+  margin-bottom: 15px;
+}
+.custom_form {
+  padding: 10px 0;
+}
+.custom_form h4 {
+  margin: 0 0 3px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  line-height: 1;
+}
+.custom_form p {
+  margin: 0;
+  font: 15px/24px "Karla", sans-serif;
+}
+@media (max-width: 767px) {
+  .custom_form p {
+    margin-bottom: 10px;
+  }
+}
+.custom_form.style2 {
+  overflow: hidden;
+}
+.custom_form.style2:before {
+  font-family: "FontAwesome";
+  content: "\f003";
+  font-size: 172px;
+  display: block;
+  opacity: 0.2;
+  position: absolute;
+  right: -35px;
+  top: -3px;
+  line-height: 1;
+  -moz-transform: matrix(0.9551, 0.29627, -0.29627, 0.9551, 0, 0);
+  -webkit-transform: matrix(0.9551, 0.29627, -0.29627, 0.9551, 0, 0);
+  -ms-transform: matrix(0.9551, 0.29627, -0.29627, 0.9551, 0, 0);
+}
+.custom_form.style3 {
+  overflow: hidden;
+}
+.custom_form.style3 .container {
+  position: relative;
+}
+.custom_form.style3 .container:before {
+  font-family: "FontAwesome";
+  content: "\f003";
+  font-size: 172px;
+  display: block;
+  color: #262d36;
+  opacity: 0.2;
+  position: absolute;
+  right: -210px;
+  top: -41px;
+  line-height: 1;
+  -moz-transform: matrix(0.9551, 0.29627, -0.29627, 0.9551, 0, 0);
+  -webkit-transform: matrix(0.9551, 0.29627, -0.29627, 0.9551, 0, 0);
+  -ms-transform: matrix(0.9551, 0.29627, -0.29627, 0.9551, 0, 0);
+}
+
+.custom_form .form-control {
+  border-radius: 2px;
+  font: 16px/24px "Karla", sans-serif;
+  padding: 9px 15px;
+  height: 42px;
+  border: none;
+  
+  background-color:#f1f5fa;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin-right: 11px;
+}
+@media (max-width: 1199px) {
+  .custom_form .form-control {
+   margin-bottom: 10px;
+  }
+}
+.custom_form .form-control::-moz-placeholder {
+  opacity: 1;
+}
+.custom_form .form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.custom_form .btn-primary {
+  line-height: 40px;
+}
+
+.custom_ul {
+    font-size:18px;
+    color:#637285;
+    margin-bottom:26px;
+}

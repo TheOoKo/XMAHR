@@ -1,0 +1,71 @@
+﻿@model IPagedList<tbRenewalPractitionerApplication>
+
+@if (Model.Count > 0)
+{
+    <div class="row">
+        
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h6 class="panel-title">Application List</h6>
+                    <div class="heading-elements">
+                        @*<button type="button" class="btn btn-link daterange-ranges heading-btn text-semibold legitRipple">
+                            <i class="icon-calendar3 position-left"></i> <span>March 1 - March 31</span> <b class="caret"></b>
+                        </button>*@
+                        <span class="label bg-success heading-text">@Model.Count Applied</span>
+                        <ul class="icons-list">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i> <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a onclick="Create()"><i class="icon-add"></i> Add</a></li>
+                                    <li><a href="#"><i class="icon-sync"></i> Refresh</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    @foreach (var item in Model)
+                    {
+                        @Html.Partial("_item", item)
+                    }
+
+                </div>
+                <div class="panel-footer" style="text-align:center">
+                    @Html.PagedListPager(Model, page => Url.Action("List", new { page = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                </div>
+            </div>
+        </div>
+   
+}
+else
+{
+    <div class="row">
+        
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h6 class="panel-title">Renewal Practitioner Application Information</h6>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i> <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#" data-toggle="modal" data-target="#modal_createDoctorRegForm"><i class="icon-sync"></i> Add</a></li>
+                                    <li><a href="#"><i class="icon-list-unordered"></i> Refresh</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="alert alert-info alert-styled-left alert-bordered">
+                        <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+                        <span class="text-semibold">Sorry!</span> No information is available to be shown. <a href="#" class="alert-link">Click 'Add' button in right menu to create new information.</a>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+}
+
+

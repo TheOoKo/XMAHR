@@ -1,0 +1,66 @@
+﻿<section class="row page-header">
+    <div class="container">
+        <h4>News and Articles</h4>
+    </div>
+</section>
+
+<section style="margin-top: 20px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="result"></div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_footer")
+
+
+@section scripts{
+    
+<script type="text/javascript">
+
+    $(function () {
+        
+        getAllNews();
+
+    });
+
+    function getAllNews() {
+        $.ajax({
+            url: '/Admin/getAllArticlesHome',
+            beforeSend: function () {
+                $("#result").append("<div style = \"width: 100%; text-align: center; margin-top: 10px; margin-bottom: 10px;\">Loading ....</div>");
+            },
+            success: function (myData) {
+
+                $("#result").empty();
+
+                for (var v = 0; v < myData.length; v++) {
+
+                    var value = new Date
+                    (
+                         parseInt(myData[v].PostedDate.replace(/(^.*\()|([+-].*$)/g, ''))
+                    );
+                    var date = value.getMonth() +
+                                                1 +
+                                            "/" +
+                                value.getDate() +
+                                            "/" +
+                            value.getFullYear();
+
+                    $("#result").append("<div style = \"margin-bottom: 50px;\"><a href = \"/Articles/Detail?id=" + myData[v].ID + "\"><h3 class=\"hhh h1\">" + myData[v].Title + "</h3></a><div><div class=\"label label-default pull-left\">" + myData[v].AuthorName + "</div><div><div class = \"label\" style = \"background: #ffffff;\"><span style = \"color: #000000;\">Posted date</span> <span style = \"color: #000000;\"> - </span> <span style = \"color: #999999;\">" + date + "</span> </div></div></div><br/><div><p>" + myData[v].Body + "</p> <b><a href = \"/Articles/Detail?id=" + myData[v].ID + "\">Read more &#187;</a></b></div></div>");
+                }
+
+                $(".gallery-item .image").nivoLightbox();
+
+            }
+        });
+    }
+
+</script>
+    
+}
+

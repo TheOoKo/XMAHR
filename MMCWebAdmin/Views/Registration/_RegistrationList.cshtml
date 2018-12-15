@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Data.Models.tbDoctor>
+<tr>
+
+    @foreach (var item in Model)
+    {
+
+        <td>
+
+            <div class="col-md-4">
+                <div class="media-left media-middle">
+
+                    <a href="#"><img src="~/Images/placeholder.jpg" class="img-circle img-xs" alt=""></a>
+                </div>
+                <div class="media-left">
+                    <div><a data-toggle="collapse" data-parent="#accordion-control" href="#accordion-control-group1" class="text-default text-semibold"></a>@item.Name | NRCNo. <span class="text-muted">@item.NRCNo</span> <br /> DOB <span class="text-muted">@item.DOB</span></div>
+                    <div class="text-muted text-size-small">
+                        <span class="status-mark border-blue position-left"></span>
+                        02:00 - 03:00
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                License No. <span class="text-muted">@item.LicenseNo</span> | Reg No. <span class="text-muted">@item.MMCNo</span>
+            </div>
+            <div class="col-md-3" style="width:auto;">
+                Father name: <span class="text-muted">@item.FatherName</span> | Phone: <span class="text-muted">@item.Mobile</span> <br /> Email: <span class="text-success-600">@item.Email</span>
+            </div>
+            <div class="col-md-1 pull-right" style="">
+                <div class="col-md-8">
+                    <span class="label bg-blue">Active</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="icons-list position-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#"><i class="icon-file-stats"></i> View statement</a></li>
+                                <li><a href="#"><i class="icon-file-text2"></i> Edit campaign</a></li>
+                                <li><a href="#"><i class="icon-file-locked"></i> Disable campaign</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><i class="icon-gear"></i> Settings</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div id="accordion-control-group1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
+                    </div>
+                </div>
+            </div>
+        </td>
+
+
+
+
+    }
+
+</tr>
+

@@ -1,0 +1,41 @@
+﻿<div class="navbar navbar-default header-highlight">
+    <div class="navbar-header">
+        <a class="navbar-brand text-center" style="color:white;" href="index.html">Myanmar Medical Council</a>
+
+        @*<ul class="nav navbar-nav visible-xs-block">
+            <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+            <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+        </ul>*@
+    </div>
+
+    <div class="navbar-collapse collapse" id="navbar-mobile">
+        <ul class="nav navbar-nav">
+            <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+
+        </ul>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+           
+            var membername = Request.Cookies["accCookie"]["Username"];
+            int memberID = Convert.ToInt32(Request.Cookies["accCookie"]["AccountID"]);
+            // var membername = Request.Cookies["accCookie"]["Username"];
+            <div class="navbar-right">
+                <p class="navbar-text">@membername</p>
+                
+                <a href="@Url.Action("LogOff", "Account")">
+                    <p class="navbar-text"><span class="label bg-success">Logout</span></p>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="navbar-right">
+                <p class="navbar-text">Morning, Victoria!</p>
+                <p class="navbar-text"><span class="label bg-success">Online</span></p>
+            </div>
+        }
+
+        
+    </div>
+</div>

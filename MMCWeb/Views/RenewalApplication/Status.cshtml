@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Status";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!doctype html>
+@section head{
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display:700,900|Fira+Sans:400,400italic' rel='stylesheet' type='text/css'>
+
+    <link href="~/Content/css/horizontal_timeline_style.css" rel="stylesheet" />
+    <link href="~/Content/css/horizontal_timeline_reset.css" rel="stylesheet" />
+    <title>Horizontal Timeline | CodyHouse</title>
+}
+
+    <section class="cd-horizontal-timeline">
+        <div class="timeline">
+            <div class="events-wrapper">
+                <div class="events">
+                    <ol>
+            
+                        <li><a href="#0" data-date="28/02/2014" class="selected">Step 1</a></li>
+                        <li><a href="#0" data-date="20/04/2014">Step 2</a></li>
+                        <li><a href="#0" data-date="20/05/2014">Step 3</a></li>
+                        <li><a href="#0" data-date="09/07/2014">Step 4</a></li>
+                
+                    </ol>
+                    <span class="filling-line" aria-hidden="true"></span>
+                </div> <!-- .events -->
+            </div> <!-- .events-wrapper -->
+
+            <ul class="cd-timeline-navigation">
+                <li><a href="#0" class="prev inactive">Prev</a></li>
+                <li><a href="#0" class="next">Next</a></li>
+            </ul> <!-- .cd-timeline-navigation -->
+        </div> <!-- .timeline -->
+        <div class="events-content">
+            <ol>
+                <li class="selected" data-date="16/01/2014">
+                    <h4>Apply and confirm submission</h4>
+                    <em>January 16th, 2014</em>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+                    </p>
+                </li>
+                <li data-date="28/02/2014">
+                    <h4>Send requirements</h4>
+                    <em>February 28th, 2014</em>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+                    </p>
+                </li>
+                <li data-date="20/04/2014">
+                    <h4>Received your documents and start processing</h4>
+                    <em>March 20th, 2014</em>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+                    </p>
+                </li>
+                <li data-date="20/05/2014">
+                    <h4>Deliver back to you</h4>
+                    <em>May 20th, 2014</em>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+                    </p>
+                </li>
+             
+                
+            </ol>
+        </div> <!-- .events-content -->
+    </section>
+
+@section scripts{
+    <script src="~/Content/js/jquery.mobile.custom.min.js"></script>
+    <script src="~/Content/js/horizontal_timeline_main.js"></script>
+    }

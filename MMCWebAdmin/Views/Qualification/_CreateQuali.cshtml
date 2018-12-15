@@ -1,0 +1,78 @@
+﻿@model Data.Models.tbQualification
+
+<div id="modal_createQualiRegForm" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title"><i class="icon-menu7"></i> &nbsp; Registration form</h5>
+            </div>
+            @using (Html.BeginForm("QCreate", "Qualification", FormMethod.Post, new { id = "createQualiRegForm", @class = "form-vertical form-validate-jquery" }))
+            {
+                <div class="modal-body">
+                    <div class="alert alert-info alert-styled-left text-blue-800 content-group">
+                        <span class="text-semibold">Add qualification for this doctor</span> Here is the form for registering qualification.
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Qualification title</label>
+                                @Html.TextBoxFor(a => a.Title, new { placeholder = "Type title here", required = "required", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Description</label>
+                                @Html.TextBoxFor(a => a.Description, new { placeholder = "Type description here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Institution</label>
+                                @{ var institution = new List<SelectListItem>() {
+                                       new SelectListItem {Value="", Text="-- Select --" },
+                                       new SelectListItem {Value="University of Medicine-1, Yangon", Text="University of Medicine-1, Yangon" },
+                                       new SelectListItem {Value="University of Medicine-2, Yangon", Text="University of Medicine-2, Yangon" },
+                                       new SelectListItem {Value="University of Medicine, Mandalay", Text="University of Medicine, Mandalay" },
+                                       new SelectListItem {Value="University of Medicine, Magway", Text="University of Medicine, Magway" },
+                                       new SelectListItem {Value="University of Medicine, Taunggyi", Text="University of Medicine, Taunggyi" },
+                                       new SelectListItem {Value="Defence Services Medical Academy, Yangon", Text="Defence Services Medical Academy, Yangon" }
+                                    };
+                                }
+                                @Html.DropDownListFor(a => a.Institution, institution, new { @class = "form-control", name = "select", required = "required" })
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Graduation Year</label>
+                                @Html.TextBoxFor(a => a.GraduationYear, new { placeholder = "Type graduation year here", @class = "form-control", required = "required" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Associated speciality</label>
+                                @Html.TextBoxFor(a => a.AssociatedSpeciality, new { placeholder = "Type Associated speciality here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Type</label>
+                                @Html.TextBoxFor(a => a.Type, new { placeholder = "Type Associated speciality here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit form</button>
+                </div>
+                @Html.HiddenFor(a => a.DoctorId, new { id = "doctorid" })
+                @Html.HiddenFor(a => a.DoctorName, new { id = "doctorname" })
+                }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+﻿@model Data.Models.tbQualification
+
+<div id="modal_editQualiRegForm" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title"><i class="icon-menu7"></i> &nbsp; Qualification edit form</h5>
+            </div>
+            @using (Html.BeginForm("QEdit", "Qualification", FormMethod.Post, new { id = "editQualiRegForm", @class = "form-vertical form-validate-jquery" }))
+            {
+                <div class="modal-body">
+                    <div class="alert alert-info alert-styled-left text-blue-800 content-group">
+                        <span class="text-semibold">Edit qualification for this doctor</span> Here is the form for editing qualification.
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Qualification title</label>
+                                @Html.TextBoxFor(a => a.Title, new { placeholder = "Type title here", required = "required", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Description</label>
+                                @Html.TextBoxFor(a => a.Description, new { placeholder = "Type description here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Institution</label>
+                                @Html.TextBoxFor(a => a.Institution, new { placeholder = "Type description here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Graduation Year</label>
+                                @Html.TextBoxFor(a => a.GraduationYear, new { placeholder = "Type graduation year here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Associated speciality</label>
+                                @Html.TextBoxFor(a => a.AssociatedSpeciality, new { placeholder = "Type Associated speciality here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Type</label>
+                                @Html.TextBoxFor(a => a.Type, new { placeholder = "Type Associated speciality here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit form</button>
+                </div>
+                @Html.HiddenFor(a => a.ID)
+                @Html.HiddenFor(a => a.IsDeleted)
+                @Html.HiddenFor(a => a.DoctorId)
+                @Html.HiddenFor(a => a.DoctorName)
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    function attachValidator(formid, modelid) {
+
+        $('#' + formid).bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'icon-checkmark-circle',
+                invalid: 'icon-exclamation',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            excluded: ':disabled',
+            fields: {
+                Name: {
+                    message: 'Email is not valid.',
+                    validators: {
+                        notEmpty: {
+                            message: 'Your email is required and cannot be empty.'
+                        }
+                    }
+                },
+                FatherName: {
+                    message: 'Subject is not valid.',
+                    validators: {
+                        notEmpty: {
+                            message: 'Subject is required for contact information.'
+                        }
+                    }
+                },
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            $.ajax(
+            {
+                cache: false,
+                async: true,
+                type: "POST",
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                beforeSend: function () {
+                    //alert('');
+                },
+                success: function (myData) {
+
+                    if (myData != "Error!") {
+                        $('#' + modelid).modal('hide');
+                    }
+
+                },
+                error: function (e) {
+
+                },
+                complete: function () {
+
+                    //$('.form-control').val('');
+                    //$('.summernote').val('');
+                    //$('#status-message').text('');
+                }
+            });
+        });
+
+    }
+</script>
+
+
+

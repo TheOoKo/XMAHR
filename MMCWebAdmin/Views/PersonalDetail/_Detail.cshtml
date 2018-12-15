@@ -1,0 +1,377 @@
+﻿
+@model Data.ViewModels.PersonalData
+
+
+<div class="panel panel-default" id="panel_@Model.personalDivisionSection.persoanl.PersonalID">
+
+
+    <div class="panel-heading" style="padding-top:0px !important">
+        <div class="panel-title">
+            <div class="media-left media-middle">
+
+                <img style="max-height:none;" src="~/Images/doctor.png" class="img-circle img-Modelponsive" alt="">
+            </div>
+            <div class="media-body">
+                <div><h6><a data-toggle="collapse" data-parent="#accordion-control" href="#accordion-control-@Model.personalDivisionSection.persoanl.PersonalID" data-id="@Model.personalDivisionSection.persoanl.PersonalID" class="text-default text-semibold">@Model.personalDivisionSection.persoanl.Name &nbsp;</a></h6></div>
+                <div class="text-size-large">
+                    @*<span class="text-muted">@Model.personalDivisionSection.persoanl.CurrentRank</span>*@
+                </div>
+
+            </div>
+            <div class="media-right media-middle">
+                
+            </div>
+
+
+        </div>
+    </div>
+    <div id="accordion-control-@Model.personalDivisionSection.persoanl.PersonalID" class="panel-collapse collapse">
+        <div id="qualifordoctor_@Model.personalDivisionSection.persoanl.PersonalID"></div>
+    </div>
+</div>
+
+
+
+
+    <div style="margin-left:10px">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item active"><a href="#home" role="tab" data-toggle="tab">Personal</a></li>
+          
+            <li><a href="#educationHistory" onclick="location.href='@Url.Action("Index", "EducationHistory")?Id='+@Model.personalDivisionSection.persoanl.PersonalID" role="tab" data-toggle="tab">Education History</a></li>
+            <li><a href="#history" onclick="location.href='@Url.Action("Index", "JobHistory")?Id='+@Model.personalDivisionSection.persoanl.PersonalID" role="tab" data-toggle="tab">History</a></li>
+
+
+            <li class="dropdown" style="float:right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                
+                 
+                    <li><a onclick="EditPersonal(this)"  data-pid="@Model.personalDivisionSection.persoanl.PersonalID"><i class="icon-file-stats"></i> Edit</a></li>
+                    <li><a onclick="deleteEntity(@Model.personalDivisionSection.persoanl.PersonalID)"><i class="icon-trash"></i> Delete</a></li>
+
+                    
+                </ul>
+            </li>
+
+        </ul>
+       
+        <hr />
+        <div class="tab-content" style="margin-left:10px;">
+            <h6 style="color:#26A69A">Basic Information</h6>
+
+            <div class="tab-pane fade in active" id="home">
+
+
+                <div class="row">
+               
+                        <div class="col-sm-2">
+                            <label>Name</label><br />
+                            <input type="text" value="@Model.personalDivisionSection.persoanl.Name" />
+                        </div>
+        
+                    <div class="col-sm-2">
+                        <label>ChildHoodName:</label>
+                        <br />
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.ChildHoodName" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Other Name:</label>
+                        <br />
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.OtherName" />
+                    </div>
+
+
+                </div>
+                <br />
+                <div class="row">
+
+                    @if (Model.personalDivisionSection.persoanl.DateOfBirth != null)
+                    {
+                        <div class="col-sm-2">
+                                <label>DateOfBirth</label>
+                                <input type="text" value="@Model.personalDivisionSection.persoanl.DateOfBirth.Value.ToShortDateString()" />
+                         </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-2">
+                                <label>DateOfBirth</label>
+                                <input type="text"/>
+                            </div>
+                    }
+
+
+                    <div class="col-sm-2">
+                        <label>Age</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.Age" />
+                    </div>
+
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>NRCNo</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.NRCNo" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Education</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.Education" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Salary</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.Salary" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Salary Range:</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.SalaryRange" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>NativeTown</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.NativeTown" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Religion</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.Religion" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Race</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.Race" />
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <h6 style="color:#26A69A">Address</h6>
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Current Address</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.CurrentAddress" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Perminent Address</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.PermanentAddress" />
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label>Previous Address</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.PreviousAddress" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+
+                    <div class="col-sm-2">
+                        <label>Work Address</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.WorkAddress" />
+                    </div>
+
+                </div>
+                <br />
+
+                <hr />
+                <h6 style="color:#26A69A">Appearance</h6>
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Height</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.Height" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Weight</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.Weight" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>HairColor</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.HairColor" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label>EyeColor</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.EyeColor" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>DistinguishedMark</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.DistinguishedMark" />
+                    </div>
+                </div>
+
+                <br />
+                <hr />
+                <h6 style="color:#26A69A">Job</h6>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Current Rank:</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.CurrentRank" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>DivisionName</label>
+                        <input type="text"  value="@Model.personalDivisionSection.division.DivisionName"/>
+                      
+                    </div>
+                    <div class="col-sm-2">
+                        <label>SectionName</label>
+                        <input  value="@Model.personalDivisionSection.section.SectionName" type="text"/>
+                     
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+                   
+                   @if (Model.personalDivisionSection.persoanl.StartDateofCurrentPosition != null)
+                   {
+                    <div class="col-sm-2">
+                        <label>StartDateofCurrentPosition:</label>
+
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.StartDateofCurrentPosition.Value.ToShortDateString()" />
+                    </div>
+                   }
+                   else
+                   {
+                    <div class="col-sm-2">
+                        <label>StartDateofCurrentPosition:</label>
+
+                        <input type="text"  />
+                    </div>
+                   }
+
+
+
+                    @if (Model.personalDivisionSection.persoanl.StartJoinDate != null)
+                    {
+                        <div class="col-sm-2">
+                            <label>StartJoinDate</label>
+                            <input type="text" value="@Model.personalDivisionSection.persoanl.StartJoinDate.Value.ToShortDateString()" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-2">
+                            <label>StartJoinDate</label>
+                            <input type="text"  />
+                        </div>
+                    }
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>How You Get Job?:</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.HowYouGetJob" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Job Recommended By:</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.JobRecommendedBy" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-5">
+                        <label>Selected Or DirectAppointment</label>
+                        <br />
+                        Selected: <input type="radio" name="choose" @(Model.personalDivisionSection.persoanl.SelectedOrDirectAppointment=="selected" ? "checked" : "")>
+                     
+                        Direct : <input type="radio" name="choose" @(Model.personalDivisionSection.persoanl.SelectedOrDirectAppointment == "Direct" ? "checked" : "")>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Previous Jobs</label>
+                    
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.PreviousJobs" />
+                    </div>
+                </div>
+
+                <br />
+                <hr />
+                <h6 style="color:#26A69A">Service</h6>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Service Year</label>
+                    <input type="text" value="@Model.personalDivisionSection.persoanl.SerivceYear">
+                    </div>
+
+                    @if (Model.personalDivisionSection.persoanl.StartServiceDate != null)
+                    {
+                        <div class="col-sm-2">
+                            <label>Start Service Date</label>
+                            <input type="text" value="@Model.personalDivisionSection.persoanl.StartServiceDate.Value.ToShortDateString()">
+                        </div>
+                    }
+
+                    else
+                    {
+                        <div class="col-sm-2">
+                            <label>Start Service Date</label>
+                            <input type="text">
+                        </div>
+                    }
+
+
+                </div>
+
+                <br />
+                <hr />
+                <h6 style="color:#26A69A">Others</h6>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Hobby</label>
+                        <input type="text" value="@Model.personalDivisionSection.persoanl.Hobby">
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-2">
+                        
+                        <label>Foreign Trip</label>
+                        Yes: <input type="radio" id="radio" @(Model.personalDivisionSection.persoanl.ForeignTrip==true ? "checked":"")>
+                        No:  <input type="radio" id="radio" @(Model.personalDivisionSection.persoanl.ForeignTrip == false ? "checked" : "")>
+                      
+    
+                        </div>
+    
+                    </div>
+    
+
+                </div>
+    
+
+                <div class="tab-pane fade" id="educationHistory">
+
+            </div>
+
+            <div class="tab-pane fade" id="history">
+                <p>History Content : ...</p>
+            </div>
+
+            @*<div class="tab-pane fade" id="dropdown1">
+                    <p>Dropdown1 - ...</p>
+                </div>
+
+                <div class="tab-pane fade" id="dropdown2">
+                    <p>Dropdown 2 - ...</p>
+                </div>*@
+
+        </div>
+    </div>
+
+
+
+

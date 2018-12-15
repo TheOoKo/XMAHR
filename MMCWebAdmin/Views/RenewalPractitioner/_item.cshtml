@@ -1,0 +1,55 @@
+﻿@model Data.Models.tbRenewalPractitionerApplication
+
+<div class="panel panel-default" id="panel_@Model.ID">
+    <div class="panel-heading" style="padding-top:0px !important">
+        <div class="panel-title">
+            <div class="media-body" style="padding-top:0px !important">
+                <div><h6><a data-toggle="collapse" data-parent="#accordion-control" href="#accordion-control-@Model.ID" onclick="showrnpEditForm(@Model.ID)" data-id="@Model.ID" class="text-default text-semibold">@Model.Name | NRCNo. <span class="text-muted">@Model.NRC</span> | Occupation: <span class="text-muted">@Html.DisplayFor(a => Model.Occupation)</span></a> | <span class="label bg-success heading-text" id="status-@Model.ID">@Model.Status | @Html.DisplayFor(a => Model.Accesstime)</span></h6></div>
+                <div class="text-size-small">
+                    License no: <span class="text-muted">@Model.LicenseNo</span> | Degree: <span class="text-muted">@Model.Degree</span> | Graduation year: <span class="text-muted">@Model.GraduationYear</span> | Current address: <span class="text-muted">@Model.CurrentAddress</span>
+                </div>
+                <div class="text-size-small">
+                    State/Division: <span class="text-muted">@Model.StateDivision</span> | Township: <span class="text-muted">@Model.Township</span> | Email: <span class="text-success-600">@Model.Email</span> | Phone: <span class="text-success-600">@Model.Phone</span>
+                </div>
+            </div>
+            <div class="media-right media-middle text-center">
+
+                @if (Model.Status == "APPLIED")
+                {
+                    <button class="btn btn-info btn-xs" id="btnchange-@Model.ID" onclick="Changestatus(this)" data-id="@Model.ID" data-status="CONFIRMED" data-newstatus="RECEIVED"><span class="icon-arrow-right13"></span> Confirm</button>
+                }
+                else if (Model.Status == "CONFIRMED")
+                {
+                    <button class="btn btn-info btn-xs" id="btnchange-@Model.ID" onclick="Changestatus(this)" data-id="@Model.ID" data-status="RECEIVED" data-newstatus="APPROVED"><span class="icon-arrow-right13"></span> Received</button>
+                }
+                else if (Model.Status == "RECEIVED")
+                {
+                    <button class="btn btn-info btn-xs" id="btnchange-@Model.ID" onclick="Approvestatus(@Model.ID)" data-id="@Model.ID" data-status="APPROVED" data-newstatus="DELIVERED"><span class="icon-arrow-right13"></span> Approve</button>
+                }
+                else if (Model.Status == "APPROVED")
+                {
+                    <button class="btn btn-info btn-xs" id="btnchange-@Model.ID" onclick="Changestatus(this)" data-id="@Model.ID" data-status="DELIVERED"><span class="icon-arrow-right13"></span> Deliver</button>
+                }
+            </div>
+            <div class="media-right media-middle">
+                <ul class="icons-list">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            @*<li><a onclick="showEditForm(@item.ID,'@item.Source')"><i class="icon-file-stats"></i> Edit</a></li>*@
+                            <li><a onclick="EDITWITHKEY(@Model.ID, '@Model.Source', 'div_editForm', '@Url.Action("Edit", "RenewalPractitioner")', 'editForm', 'modal_editForm')"><i class="icon-file-stats"></i> Edit</a></li>
+                            <li><a onclick="DELETEWITHKEY(@Model.ID,'@Model.Source', '@Url.Action("delete", "RenewalPractitioner")', '#panel_')"><i class="icon-file-text2"></i> Delete</a></li>
+                            @*<li><a href="#"><i class="icon-file-locked"></i> Print</a></li>*@
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="accordion-control-@Model.ID" class="panel-collapse collapse">
+        <div id="qualifordoctor"></div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+}
+
+@section head{
+    <link href="~/Content/bootstrapValidator.css" rel="stylesheet" />
+}
+
+<div class="page-header">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h5>
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">Persoanl Detail</span>
+                <small>Admin Panel</small>
+            </h5>
+            <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+        </div>
+    </div>
+    <div class="container-fluid">
+
+        <div class="content" id="ListResult" style="width:100%">
+            <h3>Loading...</h3>
+        </div>
+    </div>
+</div>
+
+<div id="div-detail">
+
+
+</div>
+
+@*<div id="div-EditID">
+        @{
+            Data.ViewModels.PersonalDivisionSection test = new Data.ViewModels.PersonalDivisionSection();
+            Html.Partial("_Form", new Data.ViewModels.PersonalDivisionSection());
+        }
+
+    </div>*@
+
+
+
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog modal-full">
+
+        <div class="modal-content">
+            <div id="Personal">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        @section scripts{
+            <script src="~/Scripts/bootstrap-datepicker.js"></script>
+            <script src="~/Scripts/sweetalert.min.js"></script>
+            <script src="~/Scripts/CRUD.js"></script>
+            @Scripts.Render("~/bundles/validation")
+            <script type="text/javascript">
+
+                var id =@ViewBag.PersonalId ;
+                var divisionID;
+
+              
+
+                $(function () {
+                    LoadMainList();
+
+                })
+
+                    function LoadMainList() {
+
+                        $.ajax({
+                            cache: false,
+                            url: '@Url.Action("GetPersonalByID", "PersonalDetail")',
+                            data: { id: id },
+                            beforeSend: function () {
+
+                            },
+                            success: function (result) {
+                                $("#div-detail").empty().append(result);
+
+                            },
+                            complete: function () {
+                                $("#ListResult").hide();
+                            }
+                        })
+                    }
+
+                    function EditPersonal(e){
+                        var ID=$(e).attr('data-pid');
+                        PersonalForm("Edit",ID);
+                    }
+
+
+                    function PersonalForm(FormType,ID){
+
+                        $.ajax({
+                            cache: false,
+                            url: '@Url.Action("PersonalForm", "PersonalDetail")',
+                            data: { FormType:FormType, id: id },
+                            beforeSend: function () {
+
+                            },
+                            success: function (result) {
+                            
+                                $("#Personal").empty().append(result);
+
+                                console.log(result);
+
+                            },
+                            complete: function () {
+                                $('#myModal').modal('show');
+
+                                $('.datepicker').datepicker();
+
+                                 
+                                $('#Division').change(function(){
+                                    divisionID = $('#Division').val()
+                                    $('#div').val(divisionID);
+                                    alert(divisionID);
+                                })
+
+                                $('#section').change(function(){
+                                    sectionID=$('#section').val()
+                                    $('#divSection').val(sectionID);
+                                    alert(sectionID);
+                                })
+
+                                $("#PersonalForm").submit(function(e){
+                                    e.PreventDefault();
+                                    $.ajax({
+                                        cache:false,
+                                        url:'@Url.Action("UpsertPersonal,PersonalDetail")',
+                                        type:"Post",
+                                        data:$(this).serialize(),
+                                        beforeSend:function(){
+
+                                        },
+                                        success:function(data){
+                                            console.log(data);
+                                            LoadMainList();
+                                        },
+                                        complete:function(data){
+                                            $('#myModal').modal('hide');
+                                            if(data=="Success")
+                                            {
+                                                alert("Success");
+                                                LoadMainList();
+                                            }
+                                            else{
+                                                alert("Fail");
+                                            }
+                                      
+                                        }
+                                    })
+                                })
+                            }
+                        })
+                    }
+
+            </script>
+
+
+        }
+

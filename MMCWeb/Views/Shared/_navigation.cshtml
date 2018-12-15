@@ -1,0 +1,102 @@
+﻿<header class="row header1" style="padding:10px 0 0px 0;">
+
+    <div class="container">
+        <div class="logo pull-left">
+            <img src="~/Content/images/logo.png" style="width:50px;position:relative;top:-10px;" />
+
+        </div>
+        
+        <div class="pull-right emergency-contact">
+            <div class="pull-left">
+                <span><i class="fa fa-envelope-o"></i></span>
+                <div class="infos_col">
+                    <h6>email us at</h6>
+                    <a href="mailto:info@myanmarmedicalcouncil.org"><h5>info@myanmarmedicalcouncil.org.mm</h5></a>
+                </div>
+            </div>
+            <div class="pull-left">
+                <span class="rotate"><i class="fa fa-phone"></i></span>
+                <div class="infos_col">
+                    <h6>call us now</h6>
+                    <h4>+95-9-456844445</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<nav class="navbar navbar-default navbar-static-top navbar2">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="nav navbar-nav">
+                <li class="dropdown active" id="nav_home">
+                    <a href="/Home/Index" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Index", "Home")">Introduction</a></li>
+                        <li><a href="@Url.Action("About", "Home")">About us</a></li>
+                        <li><a href="@Url.Action("Setup", "Home")">Formation</a></li>
+
+
+                    </ul>
+                </li>
+                <li id="nav_news"><a href="~/Articles/Index">News and Articles</a></li>
+                @*<li class="dropdown" id="nav_med_education">
+                    <a href="@Url.Action("Index", "Education")" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Medical Education</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Accreditation", "Education")">Recognition of Postgraduate Diplomas and Degrees (Local and International)</a></li>
+                        <li><a href="@Url.Action("Index", "Education")">List of Medical Universities and recognized medical qualifications</a></li>
+                        @*<li><a asp-controller="Education" asp-action="Accreditation">Medical Accreditation Process</a></li>
+                        <li><a asp-controller="Education" asp-action="EntryRequirement">Minimum Entry Requirements</a></li>
+                    
+                    </ul>
+                </li>*@
+                <li class="dropdown" id="nav_information">
+                    <a href="@Url.Action("Index", "Information")" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Information</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Registration", "Information")">Medical Practitioner Registration</a></li>
+                        <li><a href="@Url.Action("Licencing", "Information")">Medical Practitioner licencing</a></li>
+                        @*<li><a asp-controller="Information" asp-action="Goodstanding">Issuance of Certificate of Good Standing</a></li>
+                        <li><a asp-controller="Information" asp-action="Arbitration">Arbitration and Dispute resolution</a></li>
+                        <li><a asp-controller="Information" asp-action="Relationship">International Relations and Cooperation</a></li>*@
+                    </ul>
+                </li>
+                <li class="dropdown" id="nav_application">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Application</a>
+                    <ul class="dropdown-menu">
+                        @*<li><a href="@Url.Action("New", "Application")">New Practitioner Application</a></li>*@
+                        <li><a href="@Url.Action("Index", "RenewalApplication")">Renewal of Medical Practitioner Licence</a></li>
+                    </ul>
+
+                </li>
+                <li class="dropdown" id="nav_legislation">
+                    <a href="~/Legislation/Index">Legislation and Regulation</a>
+                    
+                </li>
+          
+
+                <li id="nav_contact"><a href="~/Contact/Index">contact</a></li>
+            </ul>
+            <ul class="nav social_navbar navbar-right">
+                <li><a href="https://www.facebook.com/myanmarmedicalcouncil/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="/Account/Login" target="_blank"><i class="fa fa-lock"></i></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <form action="#" method="get" role="form" class="search_form">
+                                <input type="search" class="form-control" placeholder="Type and press enter">
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

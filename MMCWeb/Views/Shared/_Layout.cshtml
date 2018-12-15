@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@ViewBag.Title</title>
+
+    <!--Fonts-->
+
+    <link href='https://fonts.googleapis.com/css?family=Karla:400,400italic,700italic,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+    <!--Bootstrap-->
+
+    <link rel="stylesheet" href="~/Content/css/bootstrap.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap-theme.min.css">
+    <!--Bootstrap Select-->
+    <link rel="stylesheet" href="~/Content/vendors/bootstrap-select/css/bootstrap-select.min.css">
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
+    <!--Owl Carousel-->
+    <link rel="stylesheet" href="~/Content/vendors/owl.carousel/owl.carousel.css">
+    <!--Magnific Popup-->
+    <link rel="stylesheet" href="~/Content/vendors/magnific-popup/magnific-popup.css">
+
+    <!--Theme Styles-->
+    <link rel="stylesheet" href="~/Content/css/custom-style.css">
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <link rel="stylesheet" href="~/Content/css/theme.css">
+
+   @RenderSection("head", required: false)
+</head>
+
+
+<body>
+     @Html.Partial("_navigation")
+     @RenderBody()
+  
+    
+    <script src="~/Content/js/jquery-2.1.4.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <!--Bootstrap Select-->
+    <script src="~/Content/vendors/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <!--Magnific Popup-->
+    <script src="~/Content/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!--Owl Carousel-->
+    <script src="~/Content/vendors/owl.carousel/owl.carousel.min.js"></script>
+    <!--CounterUp-->
+    <script src="~/Content/vendors/couterup/jquery.counterup.min.js"></script>
+    <!--WayPoints-->
+    <script src="~/Content/vendors/waypoint/waypoints.min.js"></script>
+    <script src="~/Content/js/theme.js"></script>
+
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+    var navInfo = '@ViewBag.navInfo';
+    
+    var navIndex = $('#nav_home');
+    var navAbout = $('#nav_about');
+    var navInformation = $('#nav_information');
+    var navEducation = $('#nav_med_education');
+    var navReport = $('#nav_report');
+    var navLegislation = $('#nav_legislation');
+    var navNews = $('#nav_news');
+    var navContact = $('#nav_contactus');
+    $(function () {
+
+        resetNavigation();
+        $('#' + navInfo).addClass('active');
+    });
+    function resetNavigation()
+    {
+        navLegislation.removeClass('active');
+        navIndex.removeClass('active');
+        navAbout.removeClass('active');
+        navInformation.removeClass('active');
+        navEducation.removeClass('active');
+        navReport.removeClass('active');
+        navNews.removeClass('active');
+        navContact.removeClass('active');
+    }
+    </script>
+
+
+</body>
+
+</html>

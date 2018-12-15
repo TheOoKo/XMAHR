@@ -1,0 +1,431 @@
+﻿@model RenewalApplicationViewModel
+
+<div id="modal_approveform" class="modal fade">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title"><i class="icon-menu7"></i> &nbsp; Renewal practitioner approval form</h5>
+            </div>
+
+            @using (Html.BeginForm("UpdateandApprove", "RenewalPractitioner", FormMethod.Post, new { id = "approveform", @class = "form-vertical form-validate-jquery" }))
+            {
+                <div class="modal-body">
+                    @*<div class="alert alert-info alert-styled-left text-blue-800 content-group">
+                            <span class="text-semibold">Add new doctor</span> Here is the form for registering new doctor.
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                        </div>*@
+                    <div class="panel panel-body content-group pt-10">
+                        <div><h6><a data-toggle="collapse" data-parent="#accordion-control" href="#accordion-control-@Model.renewalapplication.ID" onclick="showrnpEditForm(@Model.renewalapplication.ID)" data-id="@Model.renewalapplication.ID" class="text-default text-semibold">@Model.renewalapplication.Name | NRCNo. <span class="text-muted">@Model.renewalapplication.NRC</span> | Occupation: <span class="text-muted">@Html.DisplayFor(a => Model.renewalapplication.Occupation)</span></a> | <span class="label bg-success heading-text" id="status-@Model.renewalapplication.ID">@Model.renewalapplication.Status | @Html.DisplayFor(a => Model.renewalapplication.Accesstime)</span></h6></div>
+                        <div class="text-size-small">
+                            License no: <span class="text-muted">@Model.renewalapplication.LicenseNo</span> | Degree: <span class="text-muted">@Model.renewalapplication.Degree</span> | Graduation year: <span class="text-muted">@Model.renewalapplication.GraduationYear</span> | Current address: <span class="text-muted">@Model.renewalapplication.CurrentAddress</span>
+                        </div>
+                        <div class="text-size-small">
+                            State/Division: <span class="text-muted">@Model.renewalapplication.StateDivision</span> | Township: <span class="text-muted">@Model.renewalapplication.Township</span> | Email: <span class="text-success-600">@Model.renewalapplication.Email</span> | Phone: <span class="text-success-600">@Model.renewalapplication.Phone</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Title</label><span class="text-danger">*</span>
+                                @{ var title = new List<SelectListItem>() {
+                                       new SelectListItem {Value="", Text="-- Select --" },
+                                       new SelectListItem {Value="Dr", Text="Dr" },
+                                       new SelectListItem {Value="Prof", Text="Prof" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.doctor.Title, title, new { @class = "form-control", name = "select", required = "required" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Name</label><span class="text-danger">*</span>
+                                @Html.TextBoxFor(a => a.doctor.Name, new { placeholder = "Type here", required = "required", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>License no</label><span class="text-danger">*</span>
+                                @Html.TextBoxFor(a => a.doctor.LicenseNo, new { placeholder = "Type here", required = "required", @class = "form-control", type = "number" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                @{
+                                    string led = "";
+                                    if (Model.doctor.LicenseExpiryDate != null)
+                                    {
+                                        led = (Model.doctor.LicenseExpiryDate ?? DateTime.Now).ToString("dd-MMM-yyyy");
+                                    }
+                                }
+                                <label>License Expiry Date: </label><span class="text-danger">*</span>
+                                <input class="form-control datepicker" name="LicenseExpiryDate" type="text" value="@led" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>MMC no</label>
+                                @Html.TextBoxFor(a => a.doctor.MMCNo, new { placeholder = "Type name here", @class = "form-control", type = "number" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>NRC ID</label>
+                                @Html.TextBoxFor(a => a.doctor.NRCNo, new { placeholder = "Type NRC no here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Age</label>
+                                @Html.TextBoxFor(a => a.doctor.Age, new { placeholder = "Type name here", @class = "form-control", type = "number" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                @{
+                                    string dob = "";
+                                    if (Model.doctor.DOB != null)
+                                    {
+                                        dob = (Model.doctor.DOB ?? DateTime.Now).ToString("dd-MMM-yyyy");
+                                    }
+                                }
+                                <label>DOB: </label>
+                                <input class="form-control datepicker" name="DOB" type="text" value="@dob" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Father Name</label>
+                                @Html.TextBoxFor(a => a.doctor.FatherName, new { placeholder = "Type here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Mother Name</label>
+                                @Html.TextBoxFor(a => a.doctor.MotherName, new { placeholder = "Type here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Race</label>
+                                @Html.TextBoxFor(a => a.doctor.Race, new { placeholder = "Type here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Nation</label>
+                                @Html.TextBoxFor(a => a.doctor.Nationality, new { placeholder = "Type name here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                @{
+                                    string isprdo = "";
+                                    if (Model.doctor.IsPractisingDoctor == true)
+                                    {
+                                        isprdo = "checked";
+                                    }
+                                }
+                                <div class="checkbox">
+                                    <label for="ipd" class="pt-5">
+                                        <input type="checkbox" @isprdo id="ipd" name="IsPractisingDoctor" class="control-primary" value="True" />
+                                        Is Practising Doctor
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                @{
+                                    string isgov = "";
+                                    if (Model.doctor.IsPractisingInGovernmentService == true)
+                                    {
+                                        isgov = "checked";
+                                    }
+                                }
+                                <div class="checkbox">
+                                    <label for="ipigs" class="pt-5">
+                                        <input type="checkbox" @isgov id="ipigs" name="IsPractisingInGovernmentService" class="control-primary" value="True" />
+                                        Is Practising In Government Service
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                @{
+                                    string val = "";
+                                    if (Model.doctor.Validity == true)
+                                    {
+                                        val = "checked";
+                                    }
+                                }
+                                <div class="checkbox">
+                                    <label for="valid" class="pt-5">
+                                        <input type="checkbox" @val id="valid" name="Validity" class="control-primary" value="True" />
+                                        Validity
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Gender</label><span class="text-danger">*</span>
+                                @{ var gender = new List<SelectListItem>() {
+                                       new SelectListItem {Value="", Text="-- Select --" },
+                                       new SelectListItem {Value="Male", Text="Male" },
+                                       new SelectListItem {Value="Female", Text="Female" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.doctor.Gender, gender, new { @class = "form-control", name = "select", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Other Qualification</label>
+                                @Html.TextBoxFor(a => a.doctor.OtherQualification, new { placeholder = "Type here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Religion</label>
+                                @{ var religion = new List<SelectListItem>() {
+                                       new SelectListItem {Value="", Text="-- Select --" },
+                                       new SelectListItem {Value="Buddhism", Text="Buddhism" },
+                                       new SelectListItem {Value="Christianity", Text="Christianity" },
+                                       new SelectListItem {Value="Islam", Text="Islam" },
+                                       new SelectListItem {Value="Hinduism", Text="Hinduism" },
+                                       new SelectListItem {Value="Other", Text="Other" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.doctor.Religion, religion, new { @class = "form-control", name = "select" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Contact</label>
+                                @Html.TextBoxFor(a => a.doctor.Contact, new { placeholder = "Type here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Mobile</label>
+                                @Html.TextBoxFor(a => a.doctor.Mobile, new { placeholder = "Type name here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Email</label>
+                                @Html.TextBoxFor(a => a.doctor.Email, new { placeholder = "Type here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Address</label>
+                                @Html.TextBoxFor(a => a.doctor.Address, new { placeholder = "Type here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>State / Division</label><span class="text-danger">*</span>
+                                @{ var state = new List<SelectListItem>()
+                                    {
+                                       new SelectListItem {Value = "",Text = "-- Select --" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.doctor.AdState, state, new { @class = "form-control", name = "select", id = "states", required = "required" })
+                                <input class="form-control hidden" id="statehidden" value="@Model.doctor.AdState" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Township</label><span class="text-danger">*</span>
+                                @{
+                                    var town = new List<SelectListItem>()
+                                    {
+                                         new SelectListItem {Value = "",Text = "-- Select --" },
+                                    };
+                                }
+                                @Html.DropDownListFor(m => m.doctor.AdTownship, town, new { @class = "form-control", name = "select", id = "townships", required = "required" })
+                                <input class="form-control hidden" id="townhidden" value="@Model.doctor.AdTownship" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Service Type</label>
+                                @{ var stype = new List<SelectListItem>() {
+                                       new SelectListItem {Value="", Text="-- Select --" },
+                                       new SelectListItem {Value="Government", Text="Government" },
+                                       new SelectListItem {Value="Non-Government", Text="Non-Government" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.doctor.ServiceType, stype, new { @class = "form-control", name = "select" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Clinic Address</label>
+                                @Html.TextBoxFor(a => a.doctor.ClinicAddress, new { placeholder = "Type here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>State / Division (Clinic)</label>
+                                @{ var perstate = new List<SelectListItem>()
+                                    {
+                                       new SelectListItem {Value = "",Text = "-- Select --" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.doctor.CState, perstate, new { @class = "form-control", name = "select", id = "perstates" })
+                                <input class="form-control hidden" id="perstatehidden" value="@Model.doctor.CState" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Township (Clinic)</label>
+                                @{
+                                    var pertown = new List<SelectListItem>()
+                                    {
+                                         new SelectListItem {Value = "",Text = "-- Select --" },
+                                    };
+                                }
+                                @Html.DropDownListFor(m => m.doctor.CTownship, pertown, new { @class = "form-control", name = "select", id = "pertownships" })
+                                <input class="form-control hidden" id="pertownhidden" value="@Model.doctor.CTownship" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Remark</label>
+                                @Html.TextBoxFor(a => a.doctor.Remark, new { placeholder = "Type here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+
+                            </div>
+                            <div class="col-sm-3">
+
+                            </div>
+                            <div class="col-sm-3">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update and Approve</button>
+                </div>
+                    @Html.HiddenFor(a => a.doctor.ID)
+                    @Html.HiddenFor(a => a.doctor.IsDeleted)
+                    @Html.HiddenFor(a => a.doctor.Status)
+                    @Html.HiddenFor(a => a.doctor.Validity)
+                    @Html.HiddenFor(a => a.renewalapplication.ID, new { id = Model.renewalapplication.ID })
+
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+
+    $(function () {
+        $('#states').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetTownships","Home")',
+                type: 'Get',
+                cache: false,
+                data: { selectedState: $(this).find('option:selected').text() },
+                success: function (result) {
+
+                    $('#townships').empty();
+                    for (i = 0; i < result.length; i++) {
+                        $('#townships').append($('<option></option>').text(result[i]).attr('ID', result[i]));
+                    }
+                },
+                complete: function () {
+
+                }
+            })
+        })
+        $('#perstates').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetTownships","Home")',
+                type: 'Get',
+                cache: false,
+                data: { selectedState: $(this).find('option:selected').text() },
+                success: function (result) {
+
+                    $('#pertownships').empty();
+                    for (i = 0; i < result.length; i++) {
+                        $('#pertownships').append($('<option></option>').text(result[i]).attr('ID', result[i]));
+                    }
+                },
+                complete: function () {
+
+                }
+            })
+        })
+    })
+
+    function attachValidator(formid, modelid) {
+
+        $('#' + formid).bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'icon-checkmark-circle',
+                invalid: 'icon-exclamation',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            excluded: ':disabled',
+            fields: {
+                Name: {
+                    message: 'Email is not valid.',
+                    validators: {
+                        notEmpty: {
+                            message: 'Your email is required and cannot be empty.'
+                        }
+                    }
+                },
+                FatherName: {
+                    message: 'Subject is not valid.',
+                    validators: {
+                        notEmpty: {
+                            message: 'Subject is required for contact information.'
+                        }
+                    }
+                },
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            $('#hstates').val($('#states').val());
+            $('#htownships').val($('#townships').val());
+            $('#hperstates').val($('#perstates').val());
+            $('#hpertownships').val($('#pertownships').val());
+            var $form = $(e.target);
+            $.ajax(
+            {
+                cache: false,
+                async: true,
+                type: "POST",
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                beforeSend: function () {
+                    //alert('');
+                },
+                success: function (myData) {
+
+                    if (myData != "Error!") {
+                        $('#' + modelid).modal('hide');
+                    }
+
+                },
+                error: function (e) {
+
+                },
+                complete: function () {
+
+                    //$('.form-control').val('');
+                    //$('.summernote').val('');
+                    //$('#status-message').text('');
+                }
+            });
+        });
+
+    }
+</script>
+
+
+

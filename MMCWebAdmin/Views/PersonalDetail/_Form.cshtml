@@ -1,0 +1,379 @@
+﻿@model Data.ViewModels.PersonalData
+
+
+
+
+
+@*<div id="modal_personalForm" class="modal fade">
+    <div class="modal-dialog modal-full">*@
+        @*<div class="modal-content">*@
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title"><i class="icon-menu7"></i> &nbsp; Registration form</h5>
+            </div>
+
+            @using (Html.BeginForm("UpsertPersonal", "PersonalDetail", FormMethod.Post, new { id = "PersonalForm", @class = "form-vertical form-validate-jquery" }))
+            {
+                <div class="modal-body">
+                    <div class="alert alert-info alert-styled-left text-blue-800 content-group">
+                        <span class="text-semibold">Add new Personal Data</span> Here is the form for registering new person.
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Name</label><span class="text-danger">*</span>
+                             
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.Name , new { placeholder = "Type Name here", @class = "form-control" })
+
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>ChildHood Name</label><span class="text-danger">*</span>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.ChildHoodName, new { placeholder = "Type Name here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Other Name</label><span class="text-danger">*</span>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.OtherName, new { placeholder = "Type Name here", required = "required", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+
+
+                        
+                            <div class="col-sm-3">
+                                <label>Current Rank</label><span class="text-danger">*</span>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.CurrentRank, new { placeholder = "Type here", required = "required", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+
+                         @if (Model.personalDivisionSection.persoanl.StartDateofCurrentPosition != null)
+                         {
+                            <div class="col-sm-3">
+                                <label>StartDateofCurrentPosition</label>
+                                <br />
+                                <br />
+
+                                <input class="form-control datepicker" name="personalDivisionSection.persoanl.StartDateofCurrentPosition" value="@Model.personalDivisionSection.persoanl.StartDateofCurrentPosition.Value.ToShortDateString()" type="text" />
+
+
+                                <div class="messages"></div>
+                            </div>
+                         }
+                         else
+                         {
+                            <div class="col-sm-3">
+                                <label>StartDateofCurrentPosition</label>
+                                <br />
+                                <br />
+
+                                <input class="form-control datepicker" name="StartDateofCurrentPosition" type="text" />
+
+
+                                <div class="messages"></div>
+                            </div>
+                         }
+
+
+
+                            <div class="col-sm-3">
+                                <label>How You Get Job?</label>
+                                @Html.TextAreaFor(a => a.personalDivisionSection.persoanl.HowYouGetJob, new { placeholder = "Type here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Selected or Direct Appointment</label>
+                                <br />
+                                <br />
+                                Select : @Html.RadioButtonFor(a => a.personalDivisionSection.persoanl.SelectedOrDirectAppointment, "Selected")&nbsp;
+                                Direct :  @Html.RadioButtonFor(a => a.personalDivisionSection.persoanl.SelectedOrDirectAppointment, "Direct")
+
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Job Recommended By</label>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.JobRecommendedBy, new { placeholder = "Type here", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            @if (Model.personalDivisionSection.persoanl.StartJoinDate != null)
+                            {
+                                <div class="col-sm-3">
+                                    <label>Start Join Date</label>
+
+                                    <input class="form-control datepicker" value="@Model.personalDivisionSection.persoanl.StartJoinDate.Value.ToShortDateString()" name="personalDivisionSection.persoanl.StartJoinDate" type="text" />
+                                    <div class="messages"></div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-3">
+                                    <label>Start Join Date</label>
+
+                                    <input class="form-control datepicker"  name="personalDivisionSection.persoanl.StartJoinDate" type="text" />
+                                    <div class="messages"></div>
+                                </div>
+                            }
+
+
+                            <div class="col-sm-3">
+                                <label>Salary</label>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.Salary, new { placeholder = "Type here", @class = "form-control", Type = "number" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>SalaryRange</label>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.SalaryRange, new { placeholder = "Type here", @class = "form-control", Type = "number" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Division Name</label>
+                              
+
+                                <select name="selectdivision" id="Division" class="form-control">
+                                    <option hidden value="@Model.personalDivisionSection.division.DivisionID">@Model.personalDivisionSection.division.DivisionName</option>
+                                    @foreach(var divisionName in Model.divisionData )
+                                    {
+                                       
+                                        <option value="@divisionName.DivisionID">@divisionName.DivisionName</option>
+                                    }
+
+                                </select>
+
+                            <input type="hidden" name="personalDivisionSection.persoanl.DivisionID" id="div" value="@Model.personalDivisionSection.division.DivisionID" />
+                             
+                               
+                               
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+
+                                <label>Section Name</label>
+                                <br />
+                                <br />
+                             
+                                <select name="sectionName" id="section" class="form-control">
+                                    <option hidden value="@Model.personalDivisionSection.section.SectionID">@Model.personalDivisionSection.section.SectionName</option>
+                                    @foreach (var sectiondata in Model.sectionData)
+                                    {
+                                      
+                                        <option value="@sectiondata.SectionID">@sectiondata.SectionName</option>
+                                    }
+
+                                </select>
+                                <input type="hidden" id="divSection" name="personalDivisionSection.persoanl.SectionID" value="@Model.personalDivisionSection.persoanl.SectionID"/>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Work Address</label>
+                                @Html.TextAreaFor(a => a.personalDivisionSection.persoanl.WorkAddress, new { placeholder = "Type Here", @class = "form-control" })
+                            </div>
+
+                            <div class="col-sm-3">
+                                <label>Age</label>
+                                <br />
+                                <br />
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.Age, new { placeholder = "Type Here", @class = "form-control", Type = "number" })
+
+                            </div>
+                            @if (Model.personalDivisionSection.persoanl.DateOfBirth != null)
+                            {
+                                <div class="col-sm-3">
+                                    <label>Date Of Birth</label>
+                                    <br />
+                                    <br />
+                                    <input class="form-control datepicker" value="@Model.personalDivisionSection.persoanl.DateOfBirth.Value.ToShortDateString()" name="personalDivisionSection.persoanl.DateOfBirth" type="text" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-3">
+                                    <label>Date Of Birth</label>
+                                    <br />
+                                    <br />
+                                    <input class="form-control datepicker" name="personalDivisionSection.persoanl.DateOfBirth" type="text" />
+                                </div>
+                            }
+                           
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Native Town</label>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.NativeTown, new { placeholder = "Type Here", @class = "form-control" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>
+                                    Religion
+                                </label>
+                                @{
+                                    var religion = new List<SelectListItem>()
+                                                {
+                                                    new SelectListItem{ Value="",Text="--Select Religion--"},
+                                                    new SelectListItem{Value="Buddhism",Text="Buddhism"},
+                                                    new SelectListItem {Value="Christianity", Text="Christianity" },
+                                                    new SelectListItem {Value="Islam", Text="Islam" },
+                                                    new SelectListItem {Value="Hinduism", Text="Hinduism" },
+                                                    new SelectListItem {Value="Other", Text="Other" }
+
+                                                };
+                                }
+                                @Html.DropDownListFor(a => a.personalDivisionSection.persoanl.Religion, religion, new { @class = "form-control", name = "Select", require = "require" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Race</label>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.Race, new { placeholder = "Type Here", @class = "form-control" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>NRC No</label>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.NRCNo, new { placeholder = "Type Here", @class = "form-control" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Height</label>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.Height, new { placeholder = "Type Here", @class = "form-control" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Weight</label>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.Weight, new { placeholder = "Type Here", @class = "form-control" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Hair Color</label>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.HairColor, new { placeholder = "Type Here", @class = "form-control" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Eye Color</label>
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.EyeColor, new { placeholder = "Type Here", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Distinguished Mark</label>
+                                <br />
+                                <br />
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.DistinguishedMark, new { placeholder = "Type Here", @class = "form-control" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Service Year</label>
+                                <br />
+                                <br />
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.SerivceYear, new { placeholder = "Type Here", @class = "form-control", Type = "number" })
+                            </div>
+
+                            @if (Model.personalDivisionSection.persoanl.StartServiceDate != null)
+                            {
+                                <div class="col-sm-3">
+                                    <label>Start ServiceDate</label>
+                                    <br />
+                                    <br />
+                                    <input class="form-control datepicker" value="@Model.personalDivisionSection.persoanl.StartServiceDate.Value.ToShortDateString()" name="personalDivisionSection.persoanl.StartServiceDate" type="text" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-3">
+                                    <label>Start ServiceDate</label>
+                                    <br />
+                                    <br />
+                                    <input class="form-control datepicker"  name="personalDivisionSection.persoanl.StartServiceDate" type="text" />
+                                </div>
+                            }
+
+                            <div class="col-sm-3">
+                                <label>Current Address</label>
+                                @*@Html.TextAreaFor(a => a.CurrentAddModels, new { placeholder = "Type Here", @class = "form-control" })*@
+                                @*@Html.TextBoxFor(a => a.CurrentAddModels, new { placeholder = "Type Here", @class = "form-control" })*@
+                                @*@Html.TextAreaFor(a => a.CurrentAddModels, new { placeholder = "Type Here", @class = "form-control" })*@
+                                @*@Html.TextAreaFor(m => m.CurrentAddModels, new { @class = "form-control", })*@
+                                @Html.TextAreaFor(a => a.personalDivisionSection.persoanl.CurrentAddress, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Perminent Address</label>
+                                @Html.TextAreaFor(a => a.personalDivisionSection.persoanl.PermanentAddress, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Previous Address</label>
+                                @Html.TextAreaFor(a => a.personalDivisionSection.persoanl.PreviousAddress, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Education</label>
+                                <br />
+                                <br />
+                                @Html.TextBoxFor(a => a.personalDivisionSection.persoanl.Education, new { placeholder = "Type Here", @class = "form-control" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Foreign Trip</label>
+                                <br />
+                                <br />
+                                Yes : @Html.RadioButtonFor(a => a.personalDivisionSection.persoanl.ForeignTrip, true)
+                                No  : @Html.RadioButtonFor(a => a.personalDivisionSection.persoanl.ForeignTrip, false)
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Hobby</label>
+                                @Html.TextAreaFor(a => a.personalDivisionSection.persoanl.Hobby, new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Previous Jobs(Department/TownShip)</label>
+
+                                @Html.TextAreaFor(a => a.personalDivisionSection.persoanl.PreviousJobs, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                    </div>
+                    @Html.HiddenFor(a => a.personalDivisionSection.persoanl.PersonalID)
+
+                  
+                    @*@Html.HiddenFor(a=>a.personalDivisionSection.persoanl.DivisionID)*@
+                    @*@Html.HiddenFor(a => a.personalDivisionSection.persoanl.SectionID)*@
+
+
+
+
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit form</button>
+                </div>
+                                    }
+        @*</div>*@
+    @*</div>
+</div>*@
+                               

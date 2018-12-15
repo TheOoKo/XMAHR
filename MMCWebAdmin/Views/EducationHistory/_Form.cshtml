@@ -1,0 +1,111 @@
+﻿
+
+@model Data.Models.EduHistory
+
+@*@if(Model != null)*@
+
+<div class="modal-header bg-primary">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h5 class="modal-title"><i class="icon-menu7"></i> &nbsp;EducationHistory Registration form</h5>
+</div>
+@using (Html.BeginForm("UpsertEduHistory", "EducationHistory", FormMethod.Post, new { id = "EducationForm", @class = "form-vertical form-validate-jquery" }))
+{
+    <div class="modal-body">
+        <div class="alert alert-info alert-styled-left text-blue-800 content-group">
+            <span class="text-semibold">Add Education History Data</span> @*Here is the form for registering new education history.*@
+            <button type="button" class="close" data-dismiss="alert">×</button>
+        </div>
+
+        <div class="form-group">
+            <label>PersonalID:</label>
+            <input type="text" name="PersonalID" value="@Model.PersonalID" class="form-control" />
+        </div>
+
+       <div class="form-group">
+            <label>SchoolOrCollegueOrUniversity:</label>
+            <input type="text" name="SchoolOrCollegueOrUniversity" value="@Model.SchoolOrCollegueOrUniversity" class="form-control">
+        </div>
+
+
+        <div class="form-group">
+            <label>Education:</label>
+            <input type="text" name="Education" value="@Model.Education" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="usr">FromDate:</label>
+            <input class="form-control datepicker" name="FromDate" value="@Model.FromDate"  type="text" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="usr">ToDate:</label>
+            <input class="form-control datepicker" name="ToDate" value="@Model.ToDate" type="text" autocomplete="off" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="usr">School Address:</label>
+            <input type="text" class="form-control" value="@Model.SchoolAddress" name="SchoolAddress">
+        </div>
+
+        <div class="form-group">
+            <label for="usr">Rank:</label>
+            <input type="text" class="form-control" value="@Model.Rank" name="Rank">
+        </div>
+        <div class="form-group">
+            <label for="usr">Last School:</label>
+            <input type="text" class="form-control" value="@Model.LastSchool" name="LastSchool">
+        </div>
+        <div class="form-group">
+            <label for="usr">Student Life Activity:</label>
+            <input type="text" class="form-control" value="@Model.StudentLifeActivity" name="StudentLifeActivity">
+        </div>
+
+        <input type="hidden" value="@Model.EduHistoryID" name="EduHistoryID"/>
+        @*<div class="form-group">
+            <label>Education:</label>
+            <input type="text" name="Education" value="@Model.Education" class="form-control">
+        </div>*@
+
+
+    @*<div class="form-group">
+        <label for="usr">FromDate:</label>
+        <input class="form-control datepicker" name="FromDate" type="text" />
+       
+    </div>*@
+    @*<div class="form-group">
+        <label for="usr">ToDate:</label>
+
+        <input class="form-control datepicker" name="ToDate" value="@Model.ToDate" type="text" />
+    </div>
+    <div class="form-group">
+        <label for="usr">School Address:</label>
+        <input type="text" class="form-control" value="@Model.SchoolAddress" name="SchoolAddress" >
+    </div>
+    <div class="form-group">
+        <label for="usr">Rank:</label>
+        <input type="text" class="form-control" value="@Model.Rank" name="Rank" >
+    </div>
+    <div class="form-group">
+        <label for="usr">Last School:</label>
+        <input type="text" class="form-control" value="@Model.LastSchool" name="LastSchool">
+    </div>
+    <div class="form-group">
+        <label for="usr">Student Life Activity:</label>
+        <input type="text" class="form-control" value="@Model.StudentLifeActivity" name="StudentLifeActivity" >
+    </div>*@
+
+     
+
+        
+    </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit form</button>
+        </div>
+}
+ 
+
+
+

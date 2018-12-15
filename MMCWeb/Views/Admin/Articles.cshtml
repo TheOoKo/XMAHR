@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Articles";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-flat">
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-8">
+
+                        <form id="article_form" action="@Url.Action("UpdateArticle")" method="post">
+
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" name="Title" class="form-control" placeholder="Type title here">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Content</label>
+                                <textarea rows="4" name="Body" class="form-control" placeholder="Type article body here"></textarea>
+                            </div>
+                            <input type="hidden" name="ID" id="hdn_form_art_id" />
+                            <table class="pull-right">
+                                <tr>
+                                    <td>
+                                        <button style="margin-right: 10px;" type="submit" class="btn btn-xs btn-primary pull-right">Save / Update</button>
+
+                                    </td>
+                                    <td>
+                                        <button type="reset" class="btn btn-default btn-xs pull-right">Reset</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </form>
+
+                    </div>
+                    <div class="col-md-4">
+                        <input type="hidden" id="hdn_article" />
+                        <div id="photo_list">
+
+                            <input type="file" id="article_photo" name="files" style="width: 100%;" /><br />
+                            <div id="photoResult" style="height: 200px; overflow: auto;"></div>
+
+                        </div>
+                        <div id="photo_placeholder" style="position: relative; width: 100%; height: 250px; background: #f2f2f2;">
+
+                            <div style="position: absolute; top: 50%; left: 50%; margin-left: -25px; margin-top: -25px; width: 50px; height: 50px; "><span class="icon-3x icon-gallery"></span></div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div id="grid"></div>
+
+    </div>
+</div>
+
+@section scripts{
+
+    @Scripts.Render("~/bundles/articlespage")
+
+}

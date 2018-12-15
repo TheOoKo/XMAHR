@@ -1,0 +1,125 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model Data.ViewModels.PagedListClient<Data.Models.Personal>
+
+@if (Model.TotalCount > 0)
+{
+    <div class="row">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h6 class="panel-title">Application List</h6>
+                <div class="heading-elements">
+                    <span class="label bg-success heading-text">@ViewBag.TotalCount - Applied</span>
+                    <ul class="icons-list">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a onclick="Create()"><i class="icon-add"></i> Add</a></li>
+                                <li><a href="#"><i class="icon-list-unordered"></i> Refresh</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                @foreach (var item in Model.Results)
+        {
+        
+     
+
+            <div class="panel panel-default" id="panel_@item.PersonalID">
+                <div class="panel-heading" style="padding-top:0px !important">
+                    <div class="panel-title">
+                        <div class="media-left media-middle">
+                            @*@if (Model.PhotoUrl != null)
+                    {
+                        <img style="max-height:none;" src="https://portalvhdslvb28rs1c3tmc.blob.core.windows.net/mmc/doctorphotos/@Model.PhotoUrl" class="img-circle img-responsive" alt="">
+                    }*@
+                            @*else
+                    {
+                        <img style="max-height:none;" src="~/Images/doctor.png" class="img-circle img-responsive" alt="">
+                    }*@
+                            <img style="max-height:none;" src="~/Images/doctor.png" class="img-circle img-responsive" alt="">
+                        </div>
+                        <div class="media-body">
+                            <div><h6><a data-toggle="collapse" data-parent="#accordion-control" href="#accordion-control-@item.PersonalID" @*onclick="GoToDetail(this)"*@   onclick="location.href='@Url.Action("Index", "PersonalDetail")?id=' + @item.PersonalID" data-id="@item.PersonalID" class="text-default text-semibold">@item.Name | NRCNo. <span class="text-muted">@item.NRCNo</span> | DOB: <span class="text-muted">@Html.DisplayFor(a => item.DateOfBirth)</span>&nbsp;<span class="label bg-success heading-text">Status</span></a></h6></div>
+                            <div class="text-size-small">
+                                License No.: @*<span class="text-muted">@Model.LicenseNo</span> | Reg No.: <span class="text-muted">@Model.MMCNo</span>*@
+                            </div>
+                            <div class="text-size-small">
+                                Father name: @*<span class="text-muted">@Model.FatherName</span> | Mobile: <span class="text-muted">@Model.Mobile</span> | Email: <span class="text-success-600">@Model.Email</span>*@
+                            </div>
+                        </div>
+                        <div class="media-right media-middle">
+                            <ul class="icons-list">
+                                <li class="dropdown">
+                                    @*onclick="EDIT(@item.PersonalID, 'div_editForm', '@Url.Action("Edit", "Doctor")', 'editForm', 'modal_editForm')"*@
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a onclick="location.href='@Url.Action("Index", "PersonalDetail")?id=' + @item.PersonalID" ><i class="icon-file-stats"></i> Detail</a></li>
+                                        <li><a onclick="deleteEntity(@item.PersonalID)"><i class="icon-trash"></i> Delete</a></li>
+                                        @*@if (Model.Status == "APPROVED")
+                                {
+                                    <li><a onclick="dismiss(@Model.PersonalID)"><i class="icon-cross"></i> Dismiss</a></li>
+                                }
+                                else
+                                {
+                                    <li><a onclick="approve(@Model.PersonalID)"><i class="icon-check"></i> Approve</a></li>
+                                }*@
+                                        <li class="divider"></li>
+                                        <li><a onclick="addquali(this)" data-id="@item.PersonalID" data-name="@item.Name"><i class="icon-gear"></i> Add Qualification</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div id="accordion-control-@item.PersonalID" class="panel-collapse collapse">
+                    <div id="qualifordoctor_@item.PersonalID"></div>
+                </div>
+            </div>
+
+
+}
+            </div>
+            <div class="panel-footer" style="text-align:center">
+                @Html.PagedListPager(Model.Results, page => Url.Action("List", new { page = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+            </div>
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="row">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h6 class="panel-title">Doctor Information</h6>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#" data-toggle="modal" data-target="#modal_createDoctorRegForm"><i class="icon-sync"></i> Add</a></li>
+                                <li><a href="#"><i class="icon-list-unordered"></i> Refresh</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-info alert-styled-left alert-bordered">
+                    <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+                    <span class="text-semibold">Sorry!</span> Sorry! No information is available to be shown. <a href="#" class="alert-link">Click 'Add' button in right menu to create new information.</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+}

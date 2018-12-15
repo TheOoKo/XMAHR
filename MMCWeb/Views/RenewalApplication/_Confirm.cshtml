@@ -1,0 +1,102 @@
+﻿@model Data.Models.tbRenewalPractitionerApplication
+<div class="row">
+    <div class="help-process">
+        <div class="icon_box row m0">
+            <img src="~/Content/images/check.png" alt="" width="120px;">
+        </div>
+        <h5>CHECK YOUR RENEWAL APPLICATION</h5>
+        <p>Please check your information before final submission.</p>
+    </div>
+</div>
+<hr />
+    @using (Html.BeginForm("Confrim", "RenewalApplication", FormMethod.Post, new { id= "confirmForm", @class = "custom_form style3" }))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Application ID</label>
+                    <h4>@Html.DisplayFor(a => a.Code)</h4>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label>Name</label>
+                    <p><p>@Html.DisplayFor(a => a.Name)</p>
+                </div>
+                <div class="form-group">
+                    <label>Degree</label>
+                    <p>@Html.DisplayFor(a => a.Degree)</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <p>@Html.DisplayFor(a => a.Phone)</p>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <p>@Html.DisplayFor(a => a.CurrentAddress)</p>
+                </div>
+                <div class="form-group">
+                    <label>Occupation</label>
+                    <p>@Html.DisplayFor(a => a.Occupation)</p>
+                </div>
+                <div class="form-group">
+                    <label>State/Division</label>
+                    <p>@Html.DisplayFor(a => a.StateDivision)</p>
+                </div>
+
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Medical Practicing License No. (Sama)</label>
+                    <p>@Html.DisplayFor(a => a.LicenseNo)</p>
+                </div>
+
+                
+                <div class="form-group">
+                    <label>Year of Graduation</label>
+                    <p>@Html.DisplayFor(a => a.GraduationYear)</p>
+                </div>
+                <div class="form-group">
+                    <label>NRC No.</label>
+                    <p>@Html.DisplayFor(a => a.NRC)</p>
+                </div>
+               
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <p>@Html.DisplayFor(a => a.Email)</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Township</label>
+                    <p>@Html.DisplayFor(a => a.Township)</p>
+                </div>
+             
+            </div>
+        </div>
+        <div class="row">
+            <hr />
+            <div class="col-md-12">
+                <div class="form-group text-left">
+                    <p>If you confirm submission, we assume that you have accept the terms and conditions necessary for renewal application process.</p>
+                    <br />
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-primary" name="button" onclick="formaction('edit')"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                        <button class="btn btn-primary dark" name="button" onclick="formaction('confirm')"><span class="glyphicon glyphicon-ok"></span> Confirm submission</button>
+                     </div>
+                        <div id="loading" class="loadingFountain hidden" style="padding-top:10px;margin-top:10px;">
+                            <div id="fountainG_1" class="fountainG"></div>
+                            <div id="fountainG_2" class="fountainG"></div>
+                            <div id="fountainG_3" class="fountainG"></div>
+                            <div id="fountainG_4" class="fountainG"></div>
+                        </div>
+                        <div id="alert" class="alert alert-success hidden"><strong>Successfully done!</strong><span class="font-size14"> Thanks for contacting us. We will response to you shortly.</span></div>
+                    </div>
+            </div>
+            @Html.HiddenFor(a => a.ID)
+            @Html.HiddenFor(a => a.Code)
+        </div>
+    }
+

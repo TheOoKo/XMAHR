@@ -1,0 +1,89 @@
+﻿<div class="sidebar sidebar-main">
+    <div class="sidebar-content">
+        <!-- User menu -->
+        <div class="sidebar-user-material">
+
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                int memberID = Convert.ToInt32(Request.Cookies["accCookie"]["ID"]);
+                var membername = Request.Cookies["accCookie"]["Username"];
+                var email = Request.Cookies["accCookie"]["Email"];
+                <div class="category-content">
+                    <div class="sidebar-user-material-content">
+                        <a href="#"><img src="~/images/logo.jpg" class="img-circle img-responsive" alt=""></a>
+                        <h6>@membername</h6>
+                        <span class="text-size-small">@email</span>
+                    </div>
+
+                    <div class="sidebar-user-material-menu">
+                        <a href="#user-nav" data-toggle="collapse"><span>My account</span> <i class="caret"></i></a>
+                    </div>
+                </div>
+                <div class="navigation-wrapper collapse" id="user-nav">
+                    <ul class="navigation">
+                        <li><a href="#"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-cog5"></i> <span>Account settings</span></a></li>
+                        <li><a href="#"><i class="icon-switch2"></i> <span>Logout</span></a></li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="category-content">
+                    <div class="sidebar-user-material-content">
+                        <a href="#"><img src="~/images/Lock.png" class="img-circle img-responsive" alt=""></a>
+                        <h6>Victoria Baker</h6>
+                        <span class="text-size-small">Santa Ana, CA</span>
+                    </div>
+
+                    <div class="sidebar-user-material-menu">
+                        <a href="#user-nav" data-toggle="collapse"><span>My account</span> <i class="caret"></i></a>
+                    </div>
+                </div>
+                <div class="navigation-wrapper collapse" id="user-nav">
+                    <ul class="navigation">
+                        <li><a href="#"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
+                        <li><a href="#"><i class="icon-coins"></i> <span>My balance</span></a></li>
+                        <li><a href="#"><i class="icon-comment-discussion"></i> <span><span class="badge bg-teal-400 pull-right">58</span> Messages</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-cog5"></i> <span>Account settings</span></a></li>
+                        <li><a href="#"><i class="icon-switch2"></i> <span>Logout</span></a></li>
+                    </ul>
+                </div>
+            }
+
+
+        </div>
+        <!-- /user menu -->
+        <!-- Main navigation -->
+        <div class="sidebar-category sidebar-category-visible">
+            <div class="category-content no-padding">
+                <ul class="navigation navigation-main navigation-accordion">
+                    <!-- Main -->
+                    <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
+                    <li class="sbar active" id="Doctor"><a href="~/Doctor/Index"><i class="icon-man"></i> <span>Doctor</span></a></li>
+                    <li class="sbar" id="NewPractitioner"><a href="~/NewPractitioner/Index"><i class="icon-book3"></i> <span>New Medical Practitioner</span></a></li>
+                    <li class="sbar" id="RenewalPractitioner"><a href="~/RenewalPractitioner/Index"><i class="icon-redo"></i> <span>Renewal Practitioner</span></a></li>
+                    
+                    @*<li class="navigation-header"><span>Application</span> <i class="icon-menu" title="Forms"></i></li>
+                    <li>
+                        <a href="~/NewPractitioner/Index"><i class="icon-home4"></i> <span>New Medical Practitioner</span></a>
+                        <a href="~/RenewalPractitioner/Index"><i class="icon-home4"></i> <span>Renewal Practitioner</span></a>
+                    </li>*@
+                    <!-- Forms -->
+                    <li class="navigation-header"><span>Registration</span> <i class="icon-menu" title="Forms"></i></li>
+                    <li>
+                        @*<a href="~/Doctor/Index"><i class="glyphicon glyphicon-edit"></i> <span>Doctor</span></a>*@
+                        <a href="~/Qualification/Index"><i class="glyphicon glyphicon-edit"></i> <span>Qualification</span></a>
+                        <a href="~/Staff/Index"><i class="glyphicon glyphicon-edit"></i> <span>Staff</span></a>
+                    </li>
+
+                    <!-- /page kits -->
+                </ul>
+            </div>
+        </div>
+        <!-- /main navigation -->
+    </div>
+</div>

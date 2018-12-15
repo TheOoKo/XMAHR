@@ -1,0 +1,568 @@
+﻿
+@{
+    ViewBag.Title = "Personal";
+}
+@section head{
+    <link href="~/Content/bootstrapValidator.css" rel="stylesheet" />
+}
+<div class="page-header">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h5>
+                <i class="icon-arrow-left52 position-left"></i>
+                <span class="text-semibold">Personl</span>
+                <small>Admin Panel</small>
+            </h5>
+            <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+        </div>
+    </div>
+
+
+    @Html.Partial("_searchToolbar")
+
+    <div class="container-fluid">
+
+        <div class="content" id="ListResult" style="width:100%">
+            <h3>Loading...</h3>
+        </div>
+    </div>
+</div>
+<div id="div_editForm"></div>
+<div id="editquali"></div>
+@*<div id="div_List"></div>*@
+
+
+@Html.Partial("_create", new Personal())
+@*@Html.Partial("~/Views/Qualification/_CreateQuali.cshtml")*@
+
+@section scripts
+{
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="~/Scripts/CRUD.js"></script>
+    @Scripts.Render("~/bundles/validation")
+
+    <script type="text/javascript">
+        var divisionid;
+        var divisionname;
+        $(function () {
+            LIST('@Url.Action("List", "Personal")', '#ListResult');
+            var toolbar = new searchToolbar("@Url.Action("List")", 'ListResult', 'lblStatus');
+            toolbar.initialize();
+            $('.modal').on('hidden.bs.modal', function () {
+                $(this).find('input[type="text"],input[type="email"],textarea,select').val('');
+                $(this).removeData('bs.modal');
+                $('#createForm').bootstrapValidator('resetForm', true);
+            });
+            attachValidator("createForm", "modal_createForm", 0, "create");
+
+        })
+
+        function EDIT(id, div, url, form, modal) {
+            var $div = $('#' + div);
+            $.ajax(
+            {
+                url: url,
+                data: { id: id },
+                beforeSend: function () {
+                    $div.empty();
+
+                },
+                success: function (data) {
+                    $div.empty().html(data);
+                },
+                complete: function () {
+                    var $modal = $('#' + modal);
+                    attachValidator(form, modal, id, "edit");
+                    $modal.modal('show');
+                    $('.datepicker').datepicker({
+                        formet: 'mm/dd/yyyy'
+                    });
+                    bindState("edit");
+                    bindperState("edit");
+                }
+            })
+        }
+
+        function Create() {
+
+
+            $('#modal_createForm').modal('show');
+          
+            $('.datepicker').datepicker({
+                formet: 'mm/dd/yyyy'
+            });
+
+            bindDivision();
+         //   console.log("hhhhhhhhhh" + divisionid);
+           // console.log("hhhhhhhhhh" + divisionname);
+            bindSection();
+            
+            bindState("create");
+            bindperState("create");
+        }
+
+        //function Create() {
+        //    CreateForm("Add", 0);
+        //}
+
+
+        @*function CreateForm() {
+
+            $.ajax({
+                url: '@Url.Action("_PersonalForm", "Personal")',
+                data: { FormType: FormType, id: id },
+                beforeSend: function () {
+
+                },
+                success: function () {
+                    $('#modal_createForm').modal('show');
+                },
+                complete: function () {
+                    $('#modal_createForm').modal('show');
+                }
+
+            })
+
+          
+        }*@
+
+
+        function bindDivision() {
+            $.ajax({
+                url: '@Url.Action("GetDivision","Personal")',
+                beforeSend: function () {
+
+                }, success: function (result) {
+                    $("#Division").empty();
+                    $("#Division").append('<option value="">Select Division</option>');
+                    for (var i = 0; i < result.length; i++) {
+                        $("#Division").append('<option value="' + result[i].DivisionID + '">' + result[i].DivisionName+'</option>')
+                    };
+                    //var existingDivision = $("#division2").val();
+                   
+                  
+                    //$('#Division').val(existingDivision);
+                    $('#Division').on('change', function(){
+                        divisionname = $('#Division :selected').text();
+                       
+                     
+                        divisionid = $('#Division').val();
+                       
+                  
+                      
+                    })
+                  
+                   
+
+                    
+                },
+                complete: function () {
+
+                }
+            })
+        }
+
+        function bindSection() {
+            $.ajax({
+                
+                cache: false,
+                url: '@Url.Action("GetSection", "Personal")',
+                beforeSend: function() {
+
+
+                },
+                success: function (result) {
+                    $("#Section").empty();
+                    $("#Section").append('<option value="">Select Section</option>');
+                    for (var i = 0; i < result.length; i++) {
+                        $("#Section").append('<option value="' +result[i].SectionID+'">' + result[i].SectionName+'</option>')
+                    }
+                    $("#Section").on("change", function () {
+                        sectionName = $("#Section :selected").text();
+                      
+                        sectionId = $("#Section").val();
+                     
+
+                            
+                    })
+              
+
+                },
+                complete: function () {
+
+
+                }
+
+            })
+
+        }
+
+
+        function deleteEntity(id) {
+            $.ajax(
+            {
+               url: '@Url.Action("PersonalDelete", "Personal")',
+               data: { id: id },
+               beforeSend: function () {
+
+               },
+               success: function (data) {
+                  
+                   if (data == "Success") {
+                       $('#panel_' + id).empty();
+                   } else {
+                       alert("Fail");
+                   }
+               }
+           })
+        }
+
+        function dismiss(id) {
+            $.ajax(
+            {
+                url: '@Url.Action("Dismiss", "Doctor")',
+                data: { id: id },
+                beforeSend: function () {
+
+                },
+                success: function (myData) {
+                    if (myData != "Fail") {
+                        $('#panel_' + id).empty().append(myData);
+                    } else {
+                        alert("Fail");
+                    }
+                }
+            })
+        }
+
+        function approve(id) {
+            $.ajax(
+            {
+                url: '@Url.Action("Approve", "Doctor")',
+                data: { id: id },
+                beforeSend: function () {
+
+                },
+                success: function (myData) {
+                    if (myData != "Fail") {
+                        $('#panel_' + id).empty().append(myData);
+                    } else {
+                        alert("Fail");
+                    }
+                }
+            })
+        }
+
+        function addquali(e) {
+            var id = $(e).attr('data-id');
+            var name = $(e).attr('data-name');
+            attachValidator("createQualiRegForm", "modal_createQualiRegForm", 0, "qcreate");
+            $('#modal_createQualiRegForm').modal('show');
+            $('#doctorid').val(id);
+            $('#doctorname').val(name);
+        }
+
+        function editquali(e) {
+            var qualiid = $(e).attr('data-id');
+            $.ajax(
+            {
+                url: '@Url.Action("Edit", "Qualification")',
+                data: { id: qualiid },
+                beforeSend: function () {
+                    $('#editquali').empty();
+                },
+                success: function (data) {
+                    $('#editquali').empty().html(data);
+                },
+                complete: function () {
+                    attachValidator("editQualiRegForm", "modal_editQualiRegForm", qualiid, "qedit");
+                    $('#modal_editQualiRegForm').modal('show');
+                }
+            })
+        }
+
+        function deletequali(e) {
+            var qualiid = $(e).attr('data-id');
+            $.ajax(
+            {
+                url: '@Url.Action("deleteQ", "Qualification")',
+                data: { id: qualiid },
+                beforeSend: function () {
+                    //$('#qualifordoctor').empty().html("<h3>Loading...</h3>");
+                    //$('#qualifordoctor').toggle();
+                },
+                success: function (data) {
+                    if (data == "Success") {
+                        alert("success");
+                        $('#item-' + qualiid).empty();
+                    }
+                },
+                complete: function () {
+                    //attachValidator("editDoctorRegForm", "modal_editDoctorRegForm");
+                    //$('#modal_editQualiRegForm').modal('show');
+                }
+            })
+        }
+
+        //function GoToDetail(e) {
+        //    var id = $(e).attr('data-id');
+        //    alert("aa");
+            @*$.ajax(
+            {
+                url: '@Url.Action("_qualifordoctor", "Doctor")',
+                data: { doctorid: id },
+                beforeSend: function () {
+                    $('#qualifordoctor_' + id).empty().html("<h3>Loading...</h3>");
+                },
+                success: function (data) {
+                    $('#qualifordoctor_' + id).empty().html(data);
+                },
+                complete: function () {
+
+                }
+            })*@
+
+            
+        //}
+
+        function attachValidator(form, modal, id, action) {
+            var $form = $('#' + form);
+            var $modal = $('#' + modal);
+            $form.bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'icon-checkmark-circle',
+                    invalid: 'icon-exclamation',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                excluded: ':disabled',
+                fields: {
+                    Name: {
+                        message: 'Name is not valid.',
+                        validators: {
+                            notEmpty: {
+                                message: 'Doctor name is required and cannot be empty.'
+                            }
+                        }
+                    },
+                    LicenseNo: {
+                        message: 'License is not valid.',
+                        validators: {
+                            notEmpty: {
+                                message: 'License is required and cannot be empty.'
+                            }
+                        }
+                    },
+                    Title: {
+                        message: 'Title is not valid.',
+                        validators: {
+                            notEmpty: {
+                                message: 'Title is required and cannot be empty.'
+                            }
+                        }
+                    },
+                    //LicenseExpiryDate: {
+                    //    message: 'License Expiry Date is not valid.',
+                    //    validators: {
+                    //        notEmpty: {
+                    //            message: 'License Expiry Date is required and cannot be empty.'
+                    //        },
+                    //        LicenseExpiryDate: {
+                    //            format: 'MM/DD/YYYY',
+                    //            message: 'The date is not a valid'
+                    //        }
+                    //    }
+                    //},
+                    Gender: {
+                        message: 'Gender is not valid.',
+                        validators: {
+                            notEmpty: {
+                                message: 'Gender is required and cannot be empty.'
+                            }
+                        }
+                    },
+                    AdState: {
+                        message: 'AdState is not valid.',
+                        validators: {
+                            notEmpty: {
+                                message: 'AdState is required and cannot be empty.'
+                            }
+                        }
+                    },
+                    AdTownship: {
+                        message: 'AdTownship is not valid.',
+                        validators: {
+                            notEmpty: {
+                                message: 'AdTownship is required and cannot be empty.'
+                            }
+                        }
+                    },
+                    ServiceType: {
+                        message: 'Service Type is not valid.',
+                        validators: {
+                            notEmpty: {
+                                message: 'Service Type is required and cannot be empty.'
+                            }
+                        }
+                    }
+                }
+            }).on('success.form.bv', function (e) {
+                e.preventDefault();
+                var $form = $(e.target);
+                $.ajax(
+                {
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    url: $form.attr('action'),
+                    data: $form.serialize(),
+                    beforeSend: function () {
+
+                    },
+                    success: function (myData) {
+                        if (myData != "Error!") {
+                            $modal.modal('hide');
+                            console.log("edit");
+                            if (action == "edit") {
+                                $info = $('#panel_' + id);
+                                $info.replaceWith(myData);
+                            } else if (action == "qcreate" || action == "qedit") {
+                                console.log(myData);
+                            }
+                            else {
+                                window.location.href = myData;
+                            }
+                        } else {
+                            alert("Fail!");
+                        }
+                    },
+                    error: function (e) {
+
+                    },
+                    complete: function () {
+
+                    }
+                });
+            });
+        }
+
+        function bindState(type) {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetStates", "Home")',
+                beforeSend: function () {
+
+                },
+                success: function (result) {
+                    if (result != null) {
+                        $('#states').empty();
+                        $('#states').append($('<option value=""> -- Select -- </option>'));
+                        for (i = 0; i < result.length; i++) {
+                            $('#states').append($('<option value="' + result[i] + '">' + result[i] + '</option>>'));
+                        }
+                    }
+                    $('#states').on('change', function () {
+                        bindTownship($(this).val());
+                    });
+                    if (type == "edit") {
+                        $('#states').val($('#statehidden').val());
+                    }
+                },
+                complete: function () {
+                    if (type == "edit") {
+                        bindTownship($('#statehidden').val());
+                    }
+                }
+            });
+        }
+
+        function bindTownship(selectstate) {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetTownships", "Home")',
+                data: { selectedState: selectstate },
+                beforeSend: function () {
+
+                },
+                success: function (result) {
+                    if (result != null) {
+                        $('#townships').empty();
+                        $('#townships').append($('<option value=""> -- Select -- </option>'));
+                        for (i = 0; i < result.length; i++) {
+                            $('#townships').append($('<option value="' + result[i] + '">' + result[i] + '</option>>'));
+                        }
+
+                        var township = $('#townhidden').val();
+                        if (township != null && township != "") {
+                            $('#townships').val(township);
+                        }
+                    }
+                },
+                complete: function () {
+                }
+            });
+        }
+
+        function bindperState(type) {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetStates", "Home")',
+                beforeSend: function () {
+
+                },
+                success: function (result) {
+                    if (result != null) {
+                        $('#perstates').empty();
+                        $('#perstates').append($('<option value=""> -- Select -- </option>'));
+                        for (i = 0; i < result.length; i++) {
+                            $('#perstates').append($('<option value="' + result[i] + '">' + result[i] + '</option>>'));
+                        }
+                    }
+                    $('#perstates').on('change', function () {
+                        bindperTownship($(this).val());
+                    });
+                    if (type == "edit") {
+                        $('#perstates').val($('#perstatehidden').val());
+                    }
+                },
+                complete: function () {
+                    if (type == "edit") {
+                        bindperTownship($('#perstatehidden').val());
+                    }
+                }
+            });
+        }
+
+        function bindperTownship(selectstate) {
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("GetTownships", "Home")',
+                data: { selectedState: selectstate },
+                beforeSend: function () {
+
+                },
+                success: function (result) {
+                    if (result != null) {
+                        $('#pertownships').empty();
+                        $('#pertownships').append($('<option value=""> -- Select -- </option>'));
+                        for (i = 0; i < result.length; i++) {
+                            $('#pertownships').append($('<option value="' + result[i] + '">' + result[i] + '</option>>'));
+                        }
+
+                        var township = $('#pertownhidden').val();
+                        if (township != null && township != "") {
+                            $('#pertownships').val(township);
+                        }
+                    }
+                },
+                complete: function () {
+                }
+            });
+        }
+
+
+      
+
+    </script>
+}

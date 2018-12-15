@@ -1,0 +1,40 @@
+﻿
+<!-- Main navigation -->
+<div class="sidebar-category sidebar-category-visible">
+    <div class="category-content no-padding">
+        <ul class="navigation navigation-main navigation-accordion">
+            <!-- Main -->
+            <li class="navigation-header"><span>Admin Panel</span></li>
+
+            @*@if (ViewBag.Title == "Admin Dashboard")
+            {
+                <li class="active"><a href="@Url.Action("Index")"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("Index")"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+            }*@
+
+            @if (ViewBag.Title == "Articles")
+            {
+                <li class="active"><a href="@Url.Action("Articles")"><i class="icon-list"></i> <span>Articles</span></a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("Articles")"><i class="icon-list"></i> <span>Articles</span></a></li>
+            }
+
+            @if (ViewBag.Title == "Accounts")
+            {
+                <li class="active"><a href="@Url.Action("Accounts")"><i class="icon-user"></i> <span>Accounts</span></a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("Accounts")"><i class="icon-user"></i> <span>Accounts</span></a></li>
+            }
+
+            <!-- /main -->
+        </ul>
+    </div>
+</div>
+<!-- /main navigation -->

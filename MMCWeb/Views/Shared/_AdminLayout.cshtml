@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Panel - @ViewBag.Title</title>
+    
+    <!-- Global stylesheets -->
+    @*<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">*@
+    @*<link href="~/themes/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="~/themes/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/themes/assets/css/core.min.css" rel="stylesheet" type="text/css">
+    <link href="~/themes/assets/css/components.min.css" rel="stylesheet" type="text/css">
+    <link href="~/themes/assets/css/colors.min.css" rel="stylesheet" type="text/css">*@
+    @Styles.Render("~/themes/assets/css/global")
+    @Styles.Render("~/themes/assets/css/icons/icomoon/iconfont")
+
+    @Styles.Render("~/themes/kendo/css/kendo")
+
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- /global stylesheets -->
+
+    @RenderSection("css", required: false)
+</head>
+<body class="navbar-top">
+
+    <!-- Main navbar -->
+    <div class="navbar navbar-default navbar-fixed-top header-highlight">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html"><span style="color:white;font-weight:bold;">MYANMAR MEDICAL COUNCIL</span></a>
+            <ul class="nav navbar-nav pull-right visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+                <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+            </ul>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-mobile">
+            <ul class="nav navbar-nav">
+                <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="dropdown dropdown-user">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-cog5"></i>
+                            <span>@User.Identity.Name</span>
+                            <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="@Url.Action("LogOut","Account")"><i class="icon-switch2"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                }
+                
+            </ul>
+        </div>
+    </div>
+    <!-- /main navbar -->
+    <!-- Page container -->
+    <div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main sidebar -->
+            <div class="sidebar sidebar-main sidebar-fixed">
+                <div class="sidebar-content">
+                    <!-- User menu -->
+                    @*<div class="sidebar-user">
+                        <div class="category-content">
+                            <div class="media">
+                                <a href="#" class="media-left">
+                                    <img src="@Url.Content("~/themes/assets/images/placeholder.jpg")" class="img-circle img-sm" alt="">
+                                </a>
+                                <div class="media-body">
+                                    <span class="media-heading text-semibold">Victoria Baker</span>
+                                    <div class="text-size-mini text-muted">
+                                        <i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
+                                    </div>
+                                </div>
+                                <div class="media-right media-middle">
+                                    <ul class="icons-list">
+                                        <li>
+                                            <a href="#"><i class="icon-cog3"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                    <!-- /user menu -->
+                    
+                    @Html.Partial("_AdminSidebarPartial")
+
+                </div>
+            </div>
+            <!-- /main sidebar -->
+            <!-- Main content -->
+            <div class="content-wrapper">
+                @RenderSection("pageHeader", required: false)
+                <!-- Content area -->
+                <div class="content">
+                    
+                    @RenderBody()
+
+                    <!-- Footer -->
+                    @*<div class="footer text-muted">
+                        &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+                    </div>*@
+                    <!-- /footer -->
+                </div>
+                <!-- /content area -->
+            </div>
+            <!-- /main content -->
+        </div>
+        <!-- /page content -->
+    </div>
+    <!-- /page container -->
+
+
+    
+
+
+    <!-- Core JS files -->
+    @*<script type="text/javascript" src="~/themes/assets/js/plugins/loaders/pace.min.js"></script>*@
+    @*<script type="text/javascript" src="~/themes/assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="~/themes/assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/themes/assets/js/plugins/loaders/blockui.min.js"></script>*@
+    <!-- /core JS files -->
+
+    <!-- Theme JS files -->
+    @*<script type="text/javascript" src="~/themes/assets/js/plugins/ui/nicescroll.min.js"></script>
+    <script type="text/javascript" src="~/themes/assets/js/core/app.js"></script>
+    <script type="text/javascript" src="~/themes/assets/js/pages/layout_fixed_custom.js"></script>*@
+    <!-- /theme JS files -->
+
+    @Scripts.Render("~/bundles/jsrequire")
+    
+    @Scripts.Render("~/bundles/kendojs")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

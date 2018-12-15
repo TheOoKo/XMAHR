@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Accounts";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-flat">
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form id="article_form" action="@Url.Action("UpdateAccount")" method="post">
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" name="Name" class="form-control" placeholder="Type name here">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input type="text" name="Username" class="form-control" placeholder="Type username here">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="text" name="Password" class="form-control" placeholder="Type password here">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Role</label><br />
+                                        <select name="Role" id="selectRole" class="form-control">
+                                            <option value="Admin">Admin</option>
+                                            <option value="Doctor">Doctor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" name="Email" class="form-control" placeholder="Type email here">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input type="text" name="Phone" class="form-control" placeholder="Type phone here">
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="ID" id="hdn_form_acc_id" />
+                            <table class="pull-right">
+                                <tr>
+                                    <td>
+                                        <button style="margin-right: 10px;" type="submit" class="btn btn-xs btn-primary pull-right">Save / Update</button>
+
+                                    </td>
+                                    <td>
+                                        <button type="reset" class="btn btn-default btn-xs pull-right">Reset</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div id="grid"></div>
+
+    </div>
+</div>
+
+@section scripts{
+
+    @Scripts.Render("~/bundles/accountspage")
+
+}

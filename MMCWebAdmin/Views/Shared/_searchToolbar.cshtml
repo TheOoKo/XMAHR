@@ -1,0 +1,104 @@
+﻿<nav class="navbar navbar-default navbar-component" role="navigation" style="border: solid 1px #ddd; box-shadow: 1px 1px 1px #9b9a9a; padding:0px !important">
+    <div class=" container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <ul class="nav navbar-nav pull-right visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-labels"><i class="icon-menu2"></i></a></li>
+            </ul>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="navbar-collapse collapse">
+                <div class="navbar-form navbar-left col-md-5">
+                    <div class="btn-tag">
+                        @foreach (var item in ViewBag.tags)
+                        {
+                            var tag = (DMAHR.Models.TagViewModel)item;
+                            <button class="btn btn-default btn-sm" id=@tag.TagId
+                                    data-tagsearchterm=@tag.SearchTerm
+                                    data-tagsearchvalue=@tag.SearchValue>
+                                @tag.Tag
+                            </button>
+                        }
+
+                    </div>
+                </div>
+                <div class="fuelux">
+
+                    <form class="navbar-form navbar-right" role="search" id="mySearch">
+
+                        <input type="search" class="form-control" id="searchInput" placeholder="Search" />
+                        <button class="btn btn-default" type="button">
+                            <span id="btnMySearch" class="glyphicon glyphicon-search"></span>
+                            <span class="sr-only">Search</span>
+                        </button>
+
+                    </form>
+                    <div class="selectlist" data-initialize="selectlist" id="mySelectlist">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="ico-filter"></span>
+                                    <span class="selected-label"></span>
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    @foreach (var item in ViewBag.searchFilters)
+                                    {
+                                        <li data-value="@item"><a href="#">@item</a></li>
+                                    }
+                                </ul>
+                                <input class="hidden hidden-field" name="mySelectlist" id="mySelectListInput" readonly="readonly" aria-hidden="true" type="text" />
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="sortlist" data-initialize="sortlist" id="mySortlist">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="ico-sort"></span>
+                                    <span class="selected-label"></span>
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    @foreach (var item in ViewBag.sortFilters)
+                                    {
+                                        <li data-value="@item"><a href="#">@item</a></li>
+                                    }
+                                </ul>
+                                <input class="hidden hidden-field" name="mySortlist" id="mySortListInput" readonly="readonly" aria-hidden="true" type="text" />
+                            </li>
+
+                        </ul>
+                    </div>
+                    @*<div class="sortlist" data-initialize="sortlist" id="mySortlist">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="ico-sort"></span>
+                                    <span class="selected-label"></span>
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    @foreach (var item in ViewBag.sortFilters)
+                                    {
+                                        <li data-value="@item"><a href="#">@item</a></li>
+                                    }
+                                </ul>
+                                <input class="hidden hidden-field" name="mySortlist" id="mySortListInput" readonly="readonly" aria-hidden="true" type="text" />
+                            </li>
+                        </ul>
+                    </div>*@
+
+
+                </div>
+            </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+    <input type="hidden" id="searchQuery" data-action="*" data-tag-searchvalue="*" data-tag-searchterm="*" data-searchvalue="*" data-searchterm="*" data-sortby="*" data-sortdirection="asc" data-pagecount="10" />
+</nav>
+

@@ -1,0 +1,119 @@
+﻿@model Data.Models.tbRenewalPractitionerApplication
+
+<div id="modal_editNRPForm" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title"><i class="icon-menu7"></i> &nbsp; Renewal medical practitioner edit form</h5>
+            </div>
+            @using (Html.BeginForm("Edit", "RenewalPractitioner", FormMethod.Post, new { id = "editRNPForm", @class = "form-vertical form-validate-jquery" }))
+            {
+                <div class="modal-body">
+                    <div class="alert alert-info alert-styled-left text-blue-800 content-group">
+                        <span class="text-semibold">Edit renewal medical practitioner</span> Here is the form for editing renewal medical practitioner.
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Name</label><span class="text-danger">*</span>
+                                @Html.TextBoxFor(a => a.Name, new { placeholder = "Type name here", required = "required", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>NRC</label>
+                                @Html.TextBoxFor(a => a.NRC, new { placeholder = "Type NRC here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Degree</label>
+                                @Html.TextBoxFor(a => a.Degree, new { placeholder = "Type degree here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Graduation year</label>
+                                @Html.TextBoxFor(a => a.GraduationYear, new { placeholder = "Type graduation year here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Occupation</label>
+                                @Html.TextBoxFor(a => a.Occupation, new { placeholder = "Type occupation here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>License no.</label><span class="text-danger">*</span>
+                                @Html.TextBoxFor(a => a.LicenseNo, new { placeholder = "Type license no here", @class = "form-control", required = "required" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Current address</label>
+                                @Html.TextBoxFor(a => a.CurrentAddress, new { placeholder = "Type current address here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>State/Division</label><span class="text-danger">*</span>
+                                @{ var state = new List<SelectListItem>()
+                                    {
+                                       new SelectListItem {Value = "",Text = "-- Select --" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.StateDivision, state, new { @class = "form-control", name = "select", id = "states", required = "required" })
+                                <input class="form-control hidden" id="statehidden" value="@Model.StateDivision" />
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Township</label><span class="text-danger">*</span>
+                                @{
+                                    var town = new List<SelectListItem>()
+                                    {
+                                         new SelectListItem {Value = "",Text = "-- Select --" },
+                                    };
+                                }
+                                @Html.DropDownListFor(m => m.Township, town, new { @class = "form-control", name = "select", id = "townships", required = "required" })
+                                <input class="form-control hidden" id="townhidden" value="@Model.Township" />                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Phone no.</label>
+                                @Html.TextBoxFor(a => a.Phone, new { placeholder = "Type phone no. here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Email</label>
+                                @Html.TextBoxFor(a => a.Email, new { placeholder = "Type Email here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-4">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit form</button>
+                </div>
+                @Html.HiddenFor(a => a.ID)
+                @Html.HiddenFor(a => a.IsDeleted)
+                @Html.HiddenFor(a => a.Status)
+                @Html.HiddenFor(a => a.Source)
+            }
+        </div>
+    </div>
+</div>
+
+
+

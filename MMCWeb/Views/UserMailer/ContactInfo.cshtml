@@ -1,0 +1,26 @@
+﻿@model MMCWeb.Services.ContactEmailInfo
+
+
+<div>
+  
+    <p style="font-size:14px;font-weight:bold;">
+        Someone contacts to Myanmar Medical Council through website.<br />
+    </p>
+    <div style="background-color:#eeeeee; border:1px solid #808080">
+        <table style="font-size:12px;">
+            <tr><td><b>Name: </b></td><td>@Model.Name</td></tr>
+            @if (Model.Email != "info@myanmarmedicalcouncil.org.mm")
+            {
+                <tr><td><b>Email: </b></td><td>@Model.Email</td></tr>
+            }
+            <tr><td><b>Phone: </b></td><td>@Model.Phone</td></tr>
+            <tr><td><b>Message: </b></td><td>@Model.Message</td></tr>
+        </table>
+    </div>
+    <br />
+    <p class="fontSize3">
+        This message is sent at @Model.SendDate.
+    </p>
+
+</div>
+

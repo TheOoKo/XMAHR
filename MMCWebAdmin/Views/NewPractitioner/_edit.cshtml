@@ -1,0 +1,324 @@
+﻿@model Data.Models.tbNewPractitionerApplication
+
+<div id="modal_editForm" class="modal fade">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title"><i class="icon-menu7"></i> &nbsp; New medical practitioner edit form</h5>
+            </div>
+
+            @using (Html.BeginForm("Edit", "NewPractitioner", FormMethod.Post, new { id = "editForm", @class = "form-vertical form-validate-jquery" }))
+            {
+                <div class="modal-body">
+                    <div class="alert alert-info alert-styled-left text-blue-800 content-group">
+                        <span class="text-semibold">Edit medical practitioner</span> Here is the form for editing medical practitioner.
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Name</label><span class="text-danger">*</span>
+                                @Html.TextBoxFor(a => a.Name, new { placeholder = "Type name here", @class = "form-control", required = "required" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Name in Myanmar</label>
+                                @Html.TextBoxFor(a => a.Name_InMyan, new { placeholder = "Type name in myanmar here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            @*<div class="col-sm-3">
+                                <label>MMC No.</label>
+                                @Html.TextBoxFor(a => a.MMC_No, new { placeholder = "Type MMC No. here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Licnese No.</label>
+                                @Html.TextBoxFor(a => a.License_No, new { placeholder = "Type license no. here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                @{
+                                    string dob = "";
+                                    if (Model.DOB != null)
+                                    {
+                                        dob = (Model.DOB ?? DateTime.Now).ToString("dd-MMM-yyyy");
+                                    }
+                                }
+                                <label>DOB: </label>
+                                <input class="form-control datepicker" name="DOB" type="text" value="@dob" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>NRC</label>
+                                @Html.TextBoxFor(a => a.NRC, new { placeholder = "Type NRC no. here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>NRC in Myanmar</label>
+                                @Html.TextBoxFor(a => a.NRC_InMyan, new { placeholder = "Type NRC no. in Myanmar here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <label>Gender</label><span class="text-danger">*</span>
+                                        @{ var gender = new List<SelectListItem>() {
+                                               new SelectListItem {Value="", Text="-- Select --" },
+                                               new SelectListItem {Value="Male", Text="Male" },
+                                               new SelectListItem {Value="Female", Text="Female" }
+                                            };
+                                        }
+                                        @Html.DropDownListFor(Model => Model.Gender, gender, new { @class = "form-control", name = "select", required = "required" })
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Gender in Myanmar</label>
+                                        @{ var genderinmyan = new List<SelectListItem>() {
+                                               new SelectListItem {Value="", Text="-- ေရြးပါ --" },
+                                               new SelectListItem {Value="က်ား", Text="က်ား" },
+                                               new SelectListItem {Value="မ", Text="မ" }
+                                            };
+                                        }
+                                        @Html.DropDownListFor(Model => Model.Gender_InMyan, genderinmyan, new { @class = "form-control", name = "select" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Race</label>
+                                @Html.TextBoxFor(a => a.Race, new { placeholder = "Type race here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Race in Myanmar</label>
+                                @Html.TextBoxFor(a => a.Race_InMyan, new { placeholder = "Type race in Myanmar here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Religion</label>
+                                @{ var religion = new List<SelectListItem>() {
+                                       new SelectListItem {Value="", Text="-- Select --" },
+                                       new SelectListItem {Value="Buddhism", Text="Buddhism" },
+                                       new SelectListItem {Value="Christianity", Text="Christianity" },
+                                       new SelectListItem {Value="Islam", Text="Islam" },
+                                       new SelectListItem {Value="Hinduism", Text="Hinduism" },
+                                       new SelectListItem {Value="Other", Text="Other" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.Religion, religion, new { @class = "form-control", name = "select" })
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Religion in Myanmar</label>
+                                @{ var religioninmyan = new List<SelectListItem>() {
+                                       new SelectListItem {Value="", Text="-- ေရြးပါ --" },
+                                       new SelectListItem {Value="ဗုဒၶဘာသာ", Text="ဗုဒၶဘာသာ" },
+                                       new SelectListItem {Value="ခရစ္ယာန္ဘာသာ", Text="ခရစ္ယာန္ဘာသာ" },
+                                       new SelectListItem {Value="အစၥလာမ္ဘာသာ", Text="အစၥလာမ္ဘာသာ" },
+                                       new SelectListItem {Value="ဟိႏၵဴဘာသာ", Text="ဟိႏၵဴဘာသာ" },
+                                       new SelectListItem {Value="အျခား", Text="အျခား" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.Religion_InMyan, religioninmyan, new { @class = "form-control", name = "select" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Current address</label>
+                                @Html.TextBoxFor(a => a.CurrentAdd, new { placeholder = "Type current address here", required = "required", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Current address in Myanmar</label>
+                                @Html.TextBoxFor(a => a.CurrentAdd_InMyan, new { placeholder = "Type current address in Myanmar here", required = "required", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Current state/division</label><span class="text-danger">*</span>
+                                @{ var state = new List<SelectListItem>()
+                                    {
+                                       new SelectListItem {Value = "",Text = "-- Select --" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.CurrentStateDiv, state, new { @class = "form-control", name = "select", id = "states", required = "required" })
+                                <input class="form-control hidden" id="statehidden" value="@Model.CurrentStateDiv" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Current township</label><span class="text-danger">*</span>
+                                @{
+                                    var town = new List<SelectListItem>()
+                                    {
+                                         new SelectListItem {Value = "",Text = "-- Select --" },
+                                    };
+                                }
+                                @Html.DropDownListFor(m => m.CurrentTownship, town, new { @class = "form-control", name = "select", id = "townships", required = "required" })
+                                <input class="form-control hidden" id="townhidden" value="@Model.CurrentTownship" />                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Permanent address</label>
+                                @Html.TextBoxFor(a => a.PermanentAdd, new { placeholder = "Type permanent address here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Permanent address in Myanmar</label>
+                                @Html.TextBoxFor(a => a.PermanentAdd_InMyan, new { placeholder = "Type permanent address in myanmar here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Permanent state/division</label>
+                                @{ var perstate = new List<SelectListItem>()
+                                    {
+                                       new SelectListItem {Value = "",Text = "-- Select --" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.PermanentStateDiv, perstate, new { @class = "form-control", name = "select", id = "perstates" })
+                                <input class="form-control hidden" id="perstatehidden" value="@Model.PermanentStateDiv" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Permanent township</label>
+                                @{
+                                    var pertown = new List<SelectListItem>()
+                                    {
+                                         new SelectListItem {Value = "",Text = "-- Select --" },
+                                    };
+                                }
+                                @Html.DropDownListFor(m => m.PermanentTownship, pertown, new { @class = "form-control", name = "select", id = "pertownships" })
+                                <input class="form-control hidden" id="pertownhidden" value="@Model.PermanentTownship" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Father name</label>
+                                @Html.TextBoxFor(a => a.FatherName, new { placeholder = "Type father name here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Father name in Myanmar</label>
+                                @Html.TextBoxFor(a => a.FatherName_InMyan, new { placeholder = "Type father name in Myanmar here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Father NRC</label>
+                                @Html.TextBoxFor(a => a.FatherNRC, new { placeholder = "Type father NRC no. here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Father NRC in Myanmar</label>
+                                @Html.TextBoxFor(a => a.FatherNRC_InMyan, new { placeholder = "Type father NRC no. in Myanmar here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Mother name</label>
+                                @Html.TextBoxFor(a => a.MotherName, new { placeholder = "Type mother name here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Mother name in Myanmar</label>
+                                @Html.TextBoxFor(a => a.MotherName_InMyan, new { placeholder = "Type mother name in Myanmar here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Mother NRC</label>
+                                @Html.TextBoxFor(a => a.MotherNRC, new { placeholder = "Type mother NRC no. here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Mother NRC in Myanmar</label>
+                                @Html.TextBoxFor(a => a.MotherNRC_InMyan, new { placeholder = "Type mother NRC no. in Myanmar here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Phone no.</label>
+                                @Html.TextBoxFor(a => a.Phone, new { placeholder = "Type phone no. here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Email</label>
+                                @Html.TextBoxFor(a => a.Email, new { placeholder = "Type email in Myanmar here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Degree</label>
+                                @Html.TextBoxFor(a => a.Degree, new { placeholder = "Type degree here", @class = "form-control" })
+                                <div class="messages"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                @{
+                                    string graddate = "";
+                                    if (Model.Graduation_Date != null)
+                                    {
+                                        graddate = (Model.Graduation_Date ?? DateTime.Now).ToString("dd-MMM-yyyy");
+                                    }
+                                }
+                                <label>Graduation date: </label><span class="text-danger">*</span>
+                                <input class="form-control datepicker" name="Graduation_Date" type="text" value="@graddate" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Institution</label>
+                                @{ var institution = new List<SelectListItem>() {
+                                       new SelectListItem {Value="", Text="-- Select --" },
+                                       new SelectListItem {Value="University of Medicine-1, Yangon", Text="University of Medicine-1, Yangon" },
+                                       new SelectListItem {Value="University of Medicine-2, Yangon", Text="University of Medicine-2, Yangon" },
+                                       new SelectListItem {Value="University of Medicine, Mandalay", Text="University of Medicine, Mandalay" },
+                                       new SelectListItem {Value="University of Medicine, Magway", Text="University of Medicine, Magway" },
+                                       new SelectListItem {Value="University of Medicine, Taunggyi", Text="University of Medicine, Taunggyi" },
+                                       new SelectListItem {Value="Defence Services Medical Academy, Yangon", Text="Defence Services Medical Academy, Yangon" }
+                                    };
+                                }
+                                @Html.DropDownListFor(Model => Model.Institution, institution, new { @class = "form-control", name = "select" })
+                            </div>
+                            <div class="col-sm-3">
+
+                            </div>
+                            <div class="col-sm-3">
+
+                            </div>
+                            <div class="col-sm-3">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit form</button>
+                </div>
+                @Html.HiddenFor(a => a.ID)
+                @Html.HiddenFor(a => a.IsDeleted)
+                @Html.HiddenFor(a => a.Status)
+                @Html.HiddenFor(a => a.Source)
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+

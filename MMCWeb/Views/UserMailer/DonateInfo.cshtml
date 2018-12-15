@@ -1,0 +1,28 @@
+﻿@model MMDA.Services.DonateEmailInfo
+
+
+<div>
+  
+    <p style="font-size:14px;font-weight:bold;">
+        @Html.Raw(Model.Message)<br />
+    </p>
+    <div style="background-color:#eeeeee; border:1px solid #808080">
+        <table style="font-size:12px;">
+            <tr><td><b>Name: </b></td><td>@Model.Name</td></tr>
+            @if (Model.Email != "info@myanmardiabetes.org.mm")
+            {
+                <tr><td><b>Email: </b></td><td>@Model.Email</td></tr>
+            }
+            <tr><td><b>Phone: </b></td><td>@Model.Phone</td></tr>
+            <tr><td><b>Address: </b></td><td>@Model.Address</td></tr>
+            <tr><td><b>Bank Info: </b></td><td>@Model.BankInfo</td></tr>
+            <tr><td><b>Amount: </b></td><td>@Model.Amount</td></tr>
+        </table>
+    </div>
+    <br />
+    <p class="fontSize3">
+        This message is sent at @Model.SendDate.
+    </p>
+
+</div>
+

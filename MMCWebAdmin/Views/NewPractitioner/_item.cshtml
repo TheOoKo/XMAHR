@@ -1,0 +1,52 @@
+﻿@model Data.Models.tbNewPractitionerApplication
+
+<div class="panel panel-default" id="panel_@Model.ID">
+    <div class="panel-heading" style="padding-top:0px !important">
+        <div class="panel-title">
+
+            <div class="media-body" style="padding-top:0px !important">
+                <div><h6 class="text-default text-semibold">@Model.Name | NRCNo. <span class="text-muted">@Model.NRC</span> | DOB: <span class="text-muted">@Html.DisplayFor(a => Model.DOB)</span>&nbsp;<span class="label bg-success heading-text">@Model.Status | @Html.DisplayFor(a => Model.Accesstime)</span></h6></div>
+                <div class="text-size-small">
+                    Degree: <span class="text-muted">@Model.Degree</span> | Graduation year: <span class="text-muted">@Model.Graduation_Date</span> | Current address: <span class="text-muted">@Model.CurrentAdd</span>
+                </div>
+
+                <div class="text-size-small">
+                    Father name: <span class="text-muted">@Model.FatherName</span> | Mobile: <span class="text-muted">@Model.Phone</span> | Email: <span class="text-success-600">@Model.Email</span>
+                </div>
+            </div>
+            <div class="media-right media-middle text-center pb-20">
+                @*<span class="label bg-success heading-text">@item.Status</span>*@<br />
+                @if (Model.Status == "APPLIED")
+                {
+                    <button class="btn btn-info btn-xs" onclick="Changestatus(this)" data-id="@Model.ID" data-status="CONFIRMED"><span class="icon-arrow-right13"></span> Confirm</button>
+                }
+                else if (Model.Status == "CONFIRMED")
+                {
+                    <button class="btn btn-info btn-xs" onclick="Changestatus(this)" data-id="@Model.ID" data-status="RECEIVED"><span class="icon-arrow-right13"></span> Received</button>
+                }
+                else if (Model.Status == "RECEIVED")
+                {
+                    <button class="btn btn-info btn-xs" onclick="Approvestatus(@Model.ID)" data-id="@Model.ID" data-status="APPROVED"><span class="icon-arrow-right13"></span> Approve</button>
+                }
+                else if (Model.Status == "APPROVED")
+                {
+                    <button class="btn btn-info btn-xs" onclick="Changestatus(this)" data-id="@Model.ID" data-status="DELIVERED"><span class="icon-arrow-right13"></span> Deliver</button>
+                }
+            </div>
+            <div class="media-right media-middle">
+                <ul class="icons-list">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a onclick="EDITWITHKEY(@Model.ID, '@Model.Source', 'div_editForm', '@Url.Action("Edit", "NewPractitioner")', 'editForm', 'modal_editForm')"><i class="icon-file-stats"></i> Edit</a></li>
+                            <li><a onclick="DELETEWITHKEY(@Model.ID,'@Model.Source', '@Url.Action("delete", "NewPractitioner")', '#panel_')"><i class="icon-trash"></i> Delete</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
